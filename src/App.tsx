@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from 'axios';
 import {Button, Checkbox, Form, Input, Modal} from "antd";
 import {LoginOutlined} from '@ant-design/icons';
 
@@ -14,7 +15,16 @@ const App = () => {
     };
 
     const onFinish = (values: any) => {
-        console.log(values)
+
+        axios.defaults.withCredentials = true;
+
+        axios.get('http://localhost:80/sanctum/csrf-cookie').then((response: any) => {
+            axios.post('http://localhost:80/api/register', values).then((res: any) => {
+                console.log(res.data)
+            })
+        })
+
+
         setIsModalVisible(false)
     };
 
@@ -51,15 +61,23 @@ const App = () => {
                         onFinishFailed={onFinishFailed}
                     >
                         <Form.Item
-                            label="Email"
-                            name="email"
-                            rules={[{required: true, message: 'Please input your username!'}]}
+                            label="Name"
+                            name="name"
+                            rules={[{required: true, message: 'Please input your name!'}]}
                         >
                             <Input/>
                         </Form.Item>
 
                         <Form.Item
-                            label="Пароль"
+                            label="Email"
+                            name="email"
+                            rules={[{required: true, message: 'Please input your email!'}]}
+                        >
+                            <Input/>
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Password"
                             name="password"
                             rules={[{required: true, message: 'Please input your password!'}]}
                         >
