@@ -1,7 +1,7 @@
-import * as React from "react";
-import Routing from "./Routing/Routing";
+import * as React from 'react';
+import Routing from './Routing/Routing';
 const App = () => {
-  return <Routing />;
+    return <Routing />;
 };
 
 export default App;
