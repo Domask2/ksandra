@@ -14,6 +14,7 @@ const Registration = () => {
                 .post('http://localhost:80/api/auth/register/', values)
                 .then((res: any) => {
                     if (res.data.message && typeof res.data.message === 'string') {
+                        console.log(res.data);
                         setRegisterMessage(res.data.message);
                     } else {
                         console.log(res.data.message);
@@ -92,6 +93,14 @@ const Registration = () => {
                             label="Password"
                             name="password"
                             rules={[{ required: true, message: 'Please input your password!' }]}
+                        >
+                            <Input.Password />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Confirm_password"
+                            name="confirm_password"
+                            rules={[{ required: true, message: 'Please input your confirm_password!' }]}
                         >
                             <Input.Password />
                         </Form.Item>

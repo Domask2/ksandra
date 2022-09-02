@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Button, Col, Form, Input, Row } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
+import SignIn from './SignIn';
 
 const LoginAuth = () => {
     const history = useNavigate();
@@ -64,14 +65,6 @@ const LoginAuth = () => {
                         onFinishFailed={onFinishFailed}
                     >
                         <Form.Item
-                            label="Name"
-                            name="name"
-                            rules={[{ required: true, message: 'Please input your name!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
                             label="Email"
                             name="email"
                             rules={[{ required: true, message: 'Please input your email!' }]}
@@ -98,6 +91,15 @@ const LoginAuth = () => {
                         </Form.Item>
                     </Form>
                 </Col>
+                {/*<Button type="link" href={'http://localhost:80/api/login/github'}>*/}
+                {/*    GitHub*/}
+                {/*</Button>*/}
+
+                {/*<Button type="link" href={'http://localhost:80/api/login/google'}>*/}
+                {/*    Google*/}
+                {/*</Button>*/}
+
+                {/*<SignIn />*/}
             </Row>
         </>
     );

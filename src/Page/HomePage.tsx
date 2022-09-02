@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { LoginOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +19,19 @@ const HomePage = () => {
                     minHeight: '70px',
                 }}
             >
-                <div style={{ marginRight: '20px', cursor: 'pointer' }} onClick={() => console.log('logOut')}>
+                <div style={{ marginRight: '20px', cursor: 'pointer' }}>
+                    <LoginOutlined style={{ marginRight: '5px' }} />
+                    <Link
+                        to={'newUser'}
+                        onClick={() => {
+                            console.log('newClient');
+                        }}
+                    >
+                        NEW USER
+                    </Link>
+                </div>
+
+                <div style={{ marginRight: '20px', cursor: 'pointer' }}>
                     <LoginOutlined style={{ marginRight: '5px' }} />
                     <span
                         onClick={() => {

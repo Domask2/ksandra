@@ -7,6 +7,9 @@ import NoteFoundPage from '../Page/NoteFoundPage';
 import HomePage from '../Page/HomePage';
 import LoginAuth from '../Page/LoginAuth';
 import Registration from '../Page/Registration';
+import SignIn from '../Page/SignIn';
+import GoogleCallback from '../Page/GoogleCallback';
+import NewUser from '../Page/NewUser';
 
 const Routing = () => {
     return (
@@ -20,7 +23,10 @@ const Routing = () => {
                 <Route element={<AuthProvider />}>
                     <Route path={'/'} element={<HomePage />} />
                     <Route path="*" element={<NoteFoundPage />} />
+                    <Route path="newUser" element={<NewUser />} />
                 </Route>
+                <Route path="/" element={<SignIn />} />
+                <Route path="/auth/google" element={<GoogleCallback />} />
             </Routes>
         </BrowserRouter>
     );
