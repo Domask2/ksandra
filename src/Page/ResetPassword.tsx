@@ -1,30 +1,41 @@
 import * as React from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Row, Col, Button, Form, Input } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
-import { Link, useNavigate } from 'react-router-dom';
-// import SignIn from './SignInGoogle';
+import { Link } from 'react-router-dom';
 
-const LoginAuth = () => {
-    const history = useNavigate();
+const ResetPassword = () => {
+    const [registerMessage, setRegisterMessage] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
+
     const onFinish = (values: any) => {
         axios.defaults.withCredentials = true;
+        values['token'] = searchParams.get('token');
+        console.log(values);
         axios
-            .post('http://localhost:80/api/auth/login', values)
+            .post('http://localhost:80/api/auth/reset-password/', values)
             .then((res: any) => {
-                if (res.data) {
-                    console.log(res.data);
-                    res.data.id && window.localStorage.setItem('user-id', res.data.id);
-                    res.data.token && window.localStorage.setItem('user-token', res.data.token);
-                    res.data.name && window.localStorage.setItem('user-name', res.data.name);
-                    res.data.email && window.localStorage.setItem('user-email', res.data.email);
-                    res.data.token && history('/');
+                if (res.data.message && typeof res.data.message === 'string') {
+                    console.log(res.data.message);
+                    setRegisterMessage(res.data.message);
+                } else {
+                    console.log(res.data.message);
                 }
             })
             .catch((err: any) => {
                 console.log(err.response.data);
             });
     };
+
+    useEffect(() => {
+        if (registerMessage) {
+            setTimeout(() => {
+                setRegisterMessage('');
+            }, 5000);
+        }
+    }, [registerMessage]);
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
@@ -56,6 +67,8 @@ const LoginAuth = () => {
 
             <Row justify="center" style={{ marginTop: '100px' }}>
                 <Col>
+                    {registerMessage && <p style={{ marginBottom: '20px' }}>{registerMessage}</p>}
+                    <h3>Форма смены пароля</h3>
                     <Form
                         name="basic"
                         labelCol={{ span: 8 }}
@@ -80,39 +93,23 @@ const LoginAuth = () => {
                             <Input.Password />
                         </Form.Item>
 
-                        <Form.Item label="Device name" name="device_name" hidden={true} initialValue="fradminremote">
-                            <Input />
+                        <Form.Item
+                            label="Confirm_password"
+                            name="confirm_password"
+                            rules={[{ required: true, message: 'Please input your confirm_password!' }]}
+                        >
+                            <Input.Password />
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                             <Button type="primary" htmlType="submit">
-                                Войти
+                                Сохранить новый пароль
                             </Button>
                         </Form.Item>
                     </Form>
                 </Col>
-                {/*<Button type="link" href={'http://localhost:80/api/login/github'}>*/}
-                {/*    GitHub*/}
-                {/*</Button>*/}
-
-                {/*<Button type="link" href={'http://localhost:80/api/login/google'}>*/}
-                {/*    Google*/}
-                {/*</Button>*/}
-
-                {/*<SignIn />*/}
             </Row>
-            <div style={{ marginRight: '20px', cursor: 'pointer' }}>
-                <LoginOutlined style={{ marginRight: '5px' }} />
-                <Link
-                    to={'/forgot-password'}
-                    onClick={() => {
-                        console.log('forgot-password');
-                    }}
-                >
-                    Забыли пароль
-                </Link>
-            </div>
         </>
     );
 };
-export default LoginAuth;
+export default ResetPassword;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
-function SignIn() {
+function SignInGoogle() {
     const [loginUrl, setLoginUrl] = useState(null);
 
     useEffect(() => {
@@ -24,4 +24,4 @@ function SignIn() {
     return <div>{loginUrl != null && <a href={loginUrl}>Google Sign In</a>}</div>;
 }
 
-export default SignIn;
+export default SignInGoogle;

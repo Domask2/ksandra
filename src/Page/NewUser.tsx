@@ -60,6 +60,23 @@ const NewUser = () => {
                     </span>
                 </div>
             </header>
+
+            <span
+                onClick={() => {
+                    const email = localStorage.getItem('user-email');
+                    const values = { email: email };
+                    axios
+                        .post('http://localhost:80/api/auth/forgot-password', values)
+                        .then((res: any) => {
+                            console.log(res);
+                        })
+                        .catch((err: any) => {
+                            console.log(err.response.data);
+                        });
+                }}
+            >
+                сбросить пароль
+            </span>
             <Row justify="center" style={{ marginTop: '50px' }}>
                 <div>
                     {userArray &&

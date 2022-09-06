@@ -1,30 +1,31 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Row, Col, Button, Form, Input } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
-import { Link, useNavigate } from 'react-router-dom';
-// import SignIn from './SignInGoogle';
+import { Link } from 'react-router-dom';
 
-const LoginAuth = () => {
-    const history = useNavigate();
+const ForgotPassword = () => {
+    const [registerMessage, setRegisterMessage] = useState('');
+
     const onFinish = (values: any) => {
-        axios.defaults.withCredentials = true;
         axios
-            .post('http://localhost:80/api/auth/login', values)
+            .post('http://localhost:80/api/auth/forgot-password', values)
             .then((res: any) => {
-                if (res.data) {
-                    console.log(res.data);
-                    res.data.id && window.localStorage.setItem('user-id', res.data.id);
-                    res.data.token && window.localStorage.setItem('user-token', res.data.token);
-                    res.data.name && window.localStorage.setItem('user-name', res.data.name);
-                    res.data.email && window.localStorage.setItem('user-email', res.data.email);
-                    res.data.token && history('/');
-                }
+                console.log(res);
             })
             .catch((err: any) => {
                 console.log(err.response.data);
             });
     };
+
+    useEffect(() => {
+        if (registerMessage) {
+            setTimeout(() => {
+                setRegisterMessage('');
+            }, 5000);
+        }
+    }, [registerMessage]);
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
@@ -56,6 +57,7 @@ const LoginAuth = () => {
 
             <Row justify="center" style={{ marginTop: '100px' }}>
                 <Col>
+                    {registerMessage && <p style={{ marginBottom: '20px' }}>{registerMessage}</p>}
                     <Form
                         name="basic"
                         labelCol={{ span: 8 }}
@@ -72,47 +74,15 @@ const LoginAuth = () => {
                             <Input />
                         </Form.Item>
 
-                        <Form.Item
-                            label="Password"
-                            name="password"
-                            rules={[{ required: true, message: 'Please input your password!' }]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
-
-                        <Form.Item label="Device name" name="device_name" hidden={true} initialValue="fradminremote">
-                            <Input />
-                        </Form.Item>
-
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                             <Button type="primary" htmlType="submit">
-                                Войти
+                                Отправить пароль
                             </Button>
                         </Form.Item>
                     </Form>
                 </Col>
-                {/*<Button type="link" href={'http://localhost:80/api/login/github'}>*/}
-                {/*    GitHub*/}
-                {/*</Button>*/}
-
-                {/*<Button type="link" href={'http://localhost:80/api/login/google'}>*/}
-                {/*    Google*/}
-                {/*</Button>*/}
-
-                {/*<SignIn />*/}
             </Row>
-            <div style={{ marginRight: '20px', cursor: 'pointer' }}>
-                <LoginOutlined style={{ marginRight: '5px' }} />
-                <Link
-                    to={'/forgot-password'}
-                    onClick={() => {
-                        console.log('forgot-password');
-                    }}
-                >
-                    Забыли пароль
-                </Link>
-            </div>
         </>
     );
 };
-export default LoginAuth;
+export default ForgotPassword;

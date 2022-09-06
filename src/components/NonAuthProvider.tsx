@@ -4,7 +4,6 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 const NonAuthProvider: React.FC = () => {
     const auth = localStorage.getItem('user-token');
-    // const auth = false;
     const navigate = useNavigate();
     useEffect(() => {
         if (auth) navigate('/');

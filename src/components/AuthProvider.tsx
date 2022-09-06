@@ -8,7 +8,7 @@ const AuthProvider: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!auth) navigate('/login');
+        if (!auth) navigate('/sign-in');
     }, [auth, navigate]);
 
     return <Outlet />;
