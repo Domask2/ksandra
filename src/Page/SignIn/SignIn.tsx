@@ -25,10 +25,12 @@ const SignIn = () => {
     const onFinish = (values) => {
         ApiApp.login(values)
             .then((res) => {
-                res.token && window.localStorage.setItem('user-token', res.token);
-                res.name && window.localStorage.setItem('user-name', res.name);
-                res.email && window.localStorage.setItem('user-email', res.email);
-                res.token && history('/');
+                if (res.status === 200) {
+                    res.data.token && window.localStorage.setItem('user-token', res.data.token);
+                    res.data.name && window.localStorage.setItem('user-name', res.data.name);
+                    res.data.email && window.localStorage.setItem('user-email', res.data.email);
+                    res.data.token && history('/dashboard');
+                }
             })
             .catch((err: any) => {
                 if (err.response.data) {
@@ -121,9 +123,15 @@ const SignIn = () => {
                                     </Button>
                                 </Form.Item>
                                 <p className="font-semibold text-muted">
-                                    У вас нет аккаунта?{' '}
+                                    Нет аккаунта?{' '}
                                     <Link to="/sign-up" className="text-dark font-bold">
                                         Регистрация
+                                    </Link>
+                                </p>
+                                <p className="font-semibold text-muted">
+                                    Забыли пароль?{' '}
+                                    <Link to="/forgot-password" className="text-dark font-bold">
+                                        Восстановить
                                     </Link>
                                 </p>
                             </Form>

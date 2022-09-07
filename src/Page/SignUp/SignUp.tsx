@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Layout, Menu, Button, Card, Form, Input, notification } from 'antd';
 // import facebook from '../../assets/images/logos-facebook.svg';
 // import apple from '../../assets/images/logo-apple.svg';
-import google from '../../assets/images/Google__G__Logo.svg.png';
+// import google from '../../assets/images/Google__G__Logo.svg.png';
 import { DribbbleOutlined, TwitterOutlined, InstagramOutlined, GithubOutlined } from '@ant-design/icons';
 import { signin, signup } from './template';
 import { ApiApp } from '../../Api/Auth';
@@ -64,11 +64,7 @@ const SignUp = () => {
                 </Header>
 
                 <Content className="p-0">
-                    <Card
-                        className="card-signup header-solid h-full ant-card pt-0"
-                        title={<h5>Регистрация</h5>}
-                        bordered="false"
-                    >
+                    <Card className="card-signup header-solid h-full ant-card pt-0" title={<h5>Регистрация</h5>}>
                         <div className="sign-up-gateways">
                             {/*<Button type="false">*/}
                             {/*    <img src={facebook} alt="logo 1" />*/}
@@ -76,11 +72,11 @@ const SignUp = () => {
                             {/*<Button type="false">*/}
                             {/*    <img src={apple} alt="logo 2" />*/}
                             {/*</Button>*/}
-                            <Button type="false">
-                                <img src={google} alt="logo 3" />
-                            </Button>
+                            {/*<Button>*/}
+                            {/*    <img src={google} alt="logo 3" />*/}
+                            {/*</Button>*/}
                         </div>
-                        <p className="text-center my-25 font-semibold text-muted">или</p>
+                        {/*<p className="text-center my-25 font-semibold text-muted">или</p>*/}
                         <Form
                             name="basic"
                             initialValues={{ remember: true }}
