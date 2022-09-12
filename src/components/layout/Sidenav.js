@@ -4,10 +4,22 @@ import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import { billing, dashboard, tables } from './template-Sidenav';
 import { profile } from './template-Header';
+import { useEffect, useState } from 'react';
+import { ApiApp } from '../../Api/Auth';
+import { categoryType } from '../../Page/Category/categoryType';
 
 const Sidenav = ({ color }) => {
     const { pathname } = useLocation();
     const page = pathname.replace('/', '');
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        ApiApp.viewCategory().then((res) => {
+            if (res.status === 200) {
+                setCategories(res.data.category);
+            }
+        });
+    }, []);
 
     return (
         <>
@@ -17,6 +29,17 @@ const Sidenav = ({ color }) => {
             </div>
             <hr />
             <Menu theme="light" mode="inline">
+                {categories &&
+                    categories.map((cat: categoryType, index) => {
+                        return (
+                            <Menu.Item key={index + cat.id}>
+                                <NavLink to={cat.slug}>
+                                    <span className="icon">{''}</span>
+                                    <span className="label">{cat.name}</span>
+                                </NavLink>
+                            </Menu.Item>
+                        );
+                    })}
                 <Menu.Item key="1">
                     <NavLink to="/dashboard">
                         <span
@@ -86,6 +109,19 @@ const Sidenav = ({ color }) => {
                             {profile}
                         </span>
                         <span className="label">Category</span>
+                    </NavLink>
+                </Menu.Item>
+                <Menu.Item key="8">
+                    <NavLink to="/addQuestion">
+                        <span
+                            className="icon"
+                            style={{
+                                background: page === 'profile' ? color : '',
+                            }}
+                        >
+                            {profile}
+                        </span>
+                        <span className="label">Questions</span>
                     </NavLink>
                 </Menu.Item>
             </Menu>
