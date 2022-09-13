@@ -4,7 +4,6 @@ import { UploadOutlined } from '@ant-design/icons';
 
 const SeoTagsForm = () => {
     const normFile = (e: any) => {
-        console.log('Upload event:', e);
         if (Array.isArray(e)) {
             return e;
         }
@@ -29,12 +28,8 @@ const SeoTagsForm = () => {
                 <Input placeholder="brand" />
             </Form.Item>
 
-            {/*<Form.Item label={'Image'} name="image">*/}
-            {/*    <Input type={'file'} onChange={(e) => console.log(e.target.files[0])} placeholder="image" />*/}
-            {/*</Form.Item>*/}
-
             <Form.Item name="image" label="image" valuePropName="fileList" getValueFromEvent={normFile}>
-                <Upload name={'image'}>
+                <Upload beforeUpload={() => false} name={'image'}>
                     <Button icon={<UploadOutlined />}>Click to upload</Button>
                 </Upload>
             </Form.Item>

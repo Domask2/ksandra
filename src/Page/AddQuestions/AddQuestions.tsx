@@ -1,21 +1,60 @@
 import * as React from 'react';
-import { FunctionComponent as FC } from 'react';
-import { Tabs, Col, Card, Form, Button } from 'antd';
+import { FunctionComponent as FC, useState } from 'react';
+import { Button, Card, Col, Form, Tabs } from 'antd';
 import HomeForm from './HomeForm';
 import SeoTagsForm from '../Category/SeoTagsForm';
 import OtherDetailsForm from '../Category/OtherDetailsForm';
 import { ApiApp } from '../../Api/Auth';
-import question from '../Questions/Question';
+import { successNotification } from '../../source/notification';
+
+const initForm = {
+    category_id: '',
+    slug: '',
+    name: '',
+    description: '',
+    meta_title: '',
+    meta_keyword: '',
+    meta_descrip: '',
+    selling_price: '',
+    origin_price: '',
+    quantity: '',
+    brand: '',
+    featured: '',
+    popular: '',
+    status: '',
+};
 
 const AddQuestion: FC = () => {
     const [form] = Form.useForm();
+    const [activeTab, setActiveTab] = useState('1');
+
+    const changeTab = (key) => {
+        setActiveTab(key);
+    };
 
     const onFinish = (values) => {
-        console.log(values);
+        const formData = new FormData();
+        formData.append('image', values.image[0].originFileObj);
+        formData.append('category_id', values.category_id);
+        formData.append('slug', values.slug);
+        formData.append('name', values.name);
+        formData.append('description', values.description);
+        formData.append('meta_title', values.meta_title);
+        formData.append('meta_keyword', values.meta_keyword);
+        formData.append('meta_descrip', values.meta_descrip);
+        formData.append('selling_price', values.selling_price);
+        formData.append('origin_price', values.origin_price);
+        formData.append('quantity', values.quantity);
+        formData.append('brand', values.brand);
+        formData.append('featured', values.featured);
+        formData.append('popular', values.popular);
+        formData.append('status', values.status);
 
-        ApiApp.questions(values).then((res) => {
+        ApiApp.questions(formData).then((res) => {
             if (res.status === 200) {
-                console.log(res.data.message);
+                successNotification('top', '', res.data.message);
+                setActiveTab('1');
+                form.resetFields();
             } else if (res.status === 422) {
                 console.log(res.data.errors);
             }
@@ -30,14 +69,15 @@ const AddQuestion: FC = () => {
         <>
             <Form
                 form={form}
-                name="question_add_"
+                name="question_add"
                 onFinish={onFinish}
+                initialValues={initForm}
                 onFinishFailed={onFinishFailed}
                 className="row-col"
                 labelCol={{ span: 7 }}
                 wrapperCol={{ span: 17 }}
             >
-                <Tabs defaultActiveKey="1">
+                <Tabs defaultActiveKey="1" activeKey={activeTab} onChange={changeTab}>
                     <Tabs.TabPane tab="Home" key="1">
                         <Col xs={24} sm={20} md={20} lg={16} xl={16}>
                             <Card style={{ padding: '20px' }}>
@@ -62,7 +102,7 @@ const AddQuestion: FC = () => {
                 </Tabs>
 
                 <Form.Item>
-                    <Button style={{ width: '40%' }} type="primary" htmlType="submit">
+                    <Button style={{ width: '40%' }} type="primary" onClick={() => onFinish(form.getFieldsValue())}>
                         Add Question
                     </Button>
                 </Form.Item>
