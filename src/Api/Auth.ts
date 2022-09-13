@@ -74,4 +74,14 @@ export const ApiApp = {
         instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
         return instance.post(`/api/questions`, values).then((response) => response);
     },
+
+    viewQuestions() {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.get(`/api/view-questions`).then((response) => response);
+    },
+
+    viewQuestionsId(id: number) {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.get(`/api/edit-questions/${id}`).then((response) => response);
+    },
 };

@@ -28,7 +28,7 @@ const Sidenav = ({ color }) => {
                 <span>QUESTIONS</span>
             </div>
             <hr />
-            <Menu theme="light" mode="inline">
+            <Menu theme="light" mode="inline" inlineIndent={16}>
                 {categories &&
                     categories.map((cat: categoryType, index) => {
                         return (
@@ -111,19 +111,49 @@ const Sidenav = ({ color }) => {
                         <span className="label">Category</span>
                     </NavLink>
                 </Menu.Item>
-                <Menu.Item key="8">
-                    <NavLink to="/addQuestion">
-                        <span
-                            className="icon"
-                            style={{
-                                background: page === 'profile' ? color : '',
-                            }}
-                        >
-                            {profile}
-                        </span>
-                        <span className="label">Questions</span>
-                    </NavLink>
-                </Menu.Item>
+                <Menu.SubMenu
+                    key="8"
+                    title={
+                        <>
+                            <span
+                                className="icon"
+                                style={{
+                                    background: page === 'profile' ? color : '',
+                                }}
+                            >
+                                {profile}
+                            </span>
+                            <span className="label">Questions</span>
+                        </>
+                    }
+                >
+                    <Menu.Item key="81">
+                        <NavLink to="/addQuestion">
+                            <span
+                                className="icon"
+                                style={{
+                                    background: page === 'profile' ? color : '',
+                                }}
+                            >
+                                {profile}
+                            </span>
+                            <span className="label">Add Questions</span>
+                        </NavLink>
+                    </Menu.Item>
+                    <Menu.Item key="82">
+                        <NavLink to="/viewQuestion">
+                            <span
+                                className="icon"
+                                style={{
+                                    background: page === 'profile' ? color : '',
+                                }}
+                            >
+                                {profile}
+                            </span>
+                            <span className="label">View Qusetion</span>
+                        </NavLink>
+                    </Menu.Item>
+                </Menu.SubMenu>
             </Menu>
             <div className="aside-footer">
                 <div

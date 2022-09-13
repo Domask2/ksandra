@@ -13,7 +13,6 @@ const Question: FC<QuestionType> = ({ id }) => {
         setCategories({ name: '' });
         ApiApp.viewCategoryId(id).then((res) => {
             if (res.data.status === 200) {
-                // console.log(res.data.category);
                 setCategories(res.data.category);
             } else if (res.data.status === 404) {
                 console.error(res.data.message);

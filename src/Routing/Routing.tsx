@@ -16,6 +16,7 @@ import { ApiApp } from '../Api/Auth';
 import { categoryType } from '../Page/Category/categoryType';
 import Question from '../Page/Questions/Question';
 import AddQuestion from '../Page/AddQuestions/AddQuestions';
+import ViewQuestion from '../Page/ViewQuestion/ViewQuestion';
 // import GoogleCallback from '../Page/GoogleCallback';
 
 const Routing = () => {
@@ -42,6 +43,7 @@ const Routing = () => {
                 <Route path={'/category'} element={<Category />} />
                 <Route path={'/newUser'} element={<NewUser />} />
                 <Route path={'/addQuestion'} element={<AddQuestion />} />
+                <Route path={'/viewQuestion'} element={<ViewQuestion />} />
 
                 {categories &&
                     categories.map((cat: categoryType) => {

@@ -7,7 +7,7 @@ import OtherDetailsForm from '../Category/OtherDetailsForm';
 import { ApiApp } from '../../Api/Auth';
 import { successNotification } from '../../source/notification';
 
-const initForm = {
+export const initForm = {
     category_id: '',
     slug: '',
     name: '',
