@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { categoryType } from '../Page/Category/categoryType';
+import { questionType } from '../Page/AddQuestions/type-question';
 
 const baseUrl = 'http://localhost:80';
 
@@ -16,6 +17,7 @@ interface LoginInterface {
     name: string;
     role: string;
     token: string;
+    projects_roles: string;
 }
 
 export const ApiApp = {
@@ -70,7 +72,7 @@ export const ApiApp = {
         return instance.delete(`/api/delete-category/${id}`).then((response) => response);
     },
 
-    questions(values: any) {
+    questions(values: FormData) {
         instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
         return instance.post(`/api/questions`, values).then((response) => response);
     },
@@ -83,5 +85,25 @@ export const ApiApp = {
     viewQuestionsId(id: number) {
         instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
         return instance.get(`/api/edit-questions/${id}`).then((response) => response);
+    },
+
+    editQuestionsId(id: number, values: FormData) {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.post(`/api/update-questions/${id}`, values).then((response) => response);
+    },
+
+    deleteQuestions(id: number) {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.delete(`/api/delete-questions/${id}`).then((response) => response);
+    },
+
+    fetchQuestion(slug: string) {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.get(`/api/fetchQuestion/${slug}`).then((response) => response);
+    },
+
+    fetchQuestionId(slug: string, id: string) {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.get(`/api/fetchQuestionId/${slug}/${id}`).then((response) => response);
     },
 };

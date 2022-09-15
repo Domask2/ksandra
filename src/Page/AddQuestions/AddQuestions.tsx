@@ -2,27 +2,12 @@ import * as React from 'react';
 import { FunctionComponent as FC, useState } from 'react';
 import { Button, Card, Col, Form, Tabs } from 'antd';
 import HomeForm from './HomeForm';
-import SeoTagsForm from '../Category/SeoTagsForm';
-import OtherDetailsForm from '../Category/OtherDetailsForm';
+import SeoTagsForm from './SeoTagsForm';
+import OtherDetailsForm from './OtherDetailsForm';
 import { ApiApp } from '../../Api/Auth';
 import { successNotification } from '../../source/notification';
-
-export const initForm = {
-    category_id: '',
-    slug: '',
-    name: '',
-    description: '',
-    meta_title: '',
-    meta_keyword: '',
-    meta_descrip: '',
-    selling_price: '',
-    origin_price: '',
-    quantity: '',
-    brand: '',
-    featured: '',
-    popular: '',
-    status: '',
-};
+import { initForm, questionType } from './type-question';
+import question from '../Questions/Question';
 
 const AddQuestion: FC = () => {
     const [form] = Form.useForm();
@@ -32,9 +17,9 @@ const AddQuestion: FC = () => {
         setActiveTab(key);
     };
 
-    const onFinish = (values) => {
+    const onFinish = (values: questionType) => {
         const formData = new FormData();
-        formData.append('image', values.image[0].originFileObj);
+        formData.append('image', values?.image && values?.image[0].originFileObj);
         formData.append('category_id', values.category_id);
         formData.append('slug', values.slug);
         formData.append('name', values.name);
@@ -71,13 +56,13 @@ const AddQuestion: FC = () => {
                 form={form}
                 name="question_add"
                 onFinish={onFinish}
-                initialValues={initForm}
+                // initialValues={initForm}
                 onFinishFailed={onFinishFailed}
                 className="row-col"
                 labelCol={{ span: 7 }}
                 wrapperCol={{ span: 17 }}
             >
-                <Tabs defaultActiveKey="1" activeKey={activeTab} onChange={changeTab}>
+                <Tabs activeKey={activeTab} onChange={changeTab}>
                     <Tabs.TabPane tab="Home" key="1">
                         <Col xs={24} sm={20} md={20} lg={16} xl={16}>
                             <Card style={{ padding: '20px' }}>

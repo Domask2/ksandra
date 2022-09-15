@@ -12,6 +12,7 @@ const Sidenav = ({ color }) => {
     const { pathname } = useLocation();
     const page = pathname.replace('/', '');
     const [categories, setCategories] = useState([]);
+    const roles = localStorage.getItem('projects_roles');
 
     useEffect(() => {
         ApiApp.viewCategory().then((res) => {
@@ -33,7 +34,7 @@ const Sidenav = ({ color }) => {
                     categories.map((cat: categoryType, index) => {
                         return (
                             <Menu.Item key={index + cat.id}>
-                                <NavLink to={cat.slug}>
+                                <NavLink to={`question/${cat.slug}`}>
                                     <span className="icon">{''}</span>
                                     <span className="label">{cat.name}</span>
                                 </NavLink>
@@ -95,65 +96,70 @@ const Sidenav = ({ color }) => {
                         <span className="label">Profile</span>
                     </NavLink>
                 </Menu.Item>
-                <Menu.Item className="menu-item-header" key="6">
-                    Админ
-                </Menu.Item>
-                <Menu.Item key="7">
-                    <NavLink to="/category">
-                        <span
-                            className="icon"
-                            style={{
-                                background: page === 'profile' ? color : '',
-                            }}
+                {roles && roles === 'admin' && (
+                    <>
+                        {' '}
+                        <Menu.Item className="menu-item-header" key="6">
+                            Админ
+                        </Menu.Item>
+                        <Menu.Item key="7">
+                            <NavLink to="/category">
+                                <span
+                                    className="icon"
+                                    style={{
+                                        background: page === 'profile' ? color : '',
+                                    }}
+                                >
+                                    {profile}
+                                </span>
+                                <span className="label">Category</span>
+                            </NavLink>
+                        </Menu.Item>
+                        <Menu.SubMenu
+                            key="8"
+                            title={
+                                <>
+                                    <span
+                                        className="icon"
+                                        style={{
+                                            background: page === 'profile' ? color : '',
+                                        }}
+                                    >
+                                        {profile}
+                                    </span>
+                                    <span className="label">Questions</span>
+                                </>
+                            }
                         >
-                            {profile}
-                        </span>
-                        <span className="label">Category</span>
-                    </NavLink>
-                </Menu.Item>
-                <Menu.SubMenu
-                    key="8"
-                    title={
-                        <>
-                            <span
-                                className="icon"
-                                style={{
-                                    background: page === 'profile' ? color : '',
-                                }}
-                            >
-                                {profile}
-                            </span>
-                            <span className="label">Questions</span>
-                        </>
-                    }
-                >
-                    <Menu.Item key="81">
-                        <NavLink to="/addQuestion">
-                            <span
-                                className="icon"
-                                style={{
-                                    background: page === 'profile' ? color : '',
-                                }}
-                            >
-                                {profile}
-                            </span>
-                            <span className="label">Add Questions</span>
-                        </NavLink>
-                    </Menu.Item>
-                    <Menu.Item key="82">
-                        <NavLink to="/viewQuestion">
-                            <span
-                                className="icon"
-                                style={{
-                                    background: page === 'profile' ? color : '',
-                                }}
-                            >
-                                {profile}
-                            </span>
-                            <span className="label">View Qusetion</span>
-                        </NavLink>
-                    </Menu.Item>
-                </Menu.SubMenu>
+                            <Menu.Item key="81">
+                                <NavLink to="/addQuestion">
+                                    <span
+                                        className="icon"
+                                        style={{
+                                            background: page === 'profile' ? color : '',
+                                        }}
+                                    >
+                                        {profile}
+                                    </span>
+                                    <span className="label">Add Questions</span>
+                                </NavLink>
+                            </Menu.Item>
+                            <Menu.Item key="82">
+                                <NavLink to="/viewQuestion">
+                                    <span
+                                        className="icon"
+                                        style={{
+                                            background: page === 'profile' ? color : '',
+                                        }}
+                                    >
+                                        {profile}
+                                    </span>
+                                    <span className="label">View Qusetion</span>
+                                </NavLink>
+                            </Menu.Item>
+                        </Menu.SubMenu>{' '}
+                    </>
+                )}
             </Menu>
             <div className="aside-footer">
                 <div

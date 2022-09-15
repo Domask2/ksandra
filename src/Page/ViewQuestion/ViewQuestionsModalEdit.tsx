@@ -1,27 +1,15 @@
 import * as React from 'react';
-import { FunctionComponent as FC, memo, useEffect, useState } from 'react';
-import { Button, Card, Col, Form, Input, Modal, Select, Tabs } from 'antd';
-import { ApiApp } from '../../Api/Auth';
-import { errorNotification, successNotification } from '../../source/notification';
+import { memo } from 'react';
+import { Button, Form, Modal, Tabs } from 'antd';
+
+import SeoTagsForm from '../AddQuestions/SeoTagsForm';
+import OtherDetailsForm from '../AddQuestions/OtherDetailsForm';
 import HomeForm from '../AddQuestions/HomeForm';
-import SeoTagsForm from '../Category/SeoTagsForm';
-import OtherDetailsForm from '../Category/OtherDetailsForm';
-import { initForm as init } from '../AddQuestions/AddQuestions';
-import { categoryType } from '../Category/categoryType';
-const { Option } = Select;
+import { ApiApp } from '../../Api/Auth';
+import { successNotification } from '../../source/notification';
 
-const ViewQuestionsModalEdit = ({ qustion, isModalEdit, setIsModalEdit }: any) => {
-    const [categoriesList, setCategoriesList] = useState([]);
+const ViewQuestionsModalEdit = ({ question, isModalEdit, setIsModalEdit, setLoading }: any) => {
     const [form] = Form.useForm();
-
-    useEffect(() => {
-        ApiApp.allCategory().then((res) => {
-            if (res.status === 200) {
-                setCategoriesList(res.data.category);
-            }
-        });
-    }, []);
-    console.log(qustion);
 
     const handleOk = () => {
         setIsModalEdit(false);
@@ -32,8 +20,32 @@ const ViewQuestionsModalEdit = ({ qustion, isModalEdit, setIsModalEdit }: any) =
     };
 
     const onFinish = (values) => {
-        console.log(values);
-        setIsModalEdit(false);
+        const formData = new FormData();
+        formData.append('image', values.image && values.image[0].originFileObj);
+        values.category_id && formData.append('category_id', values.category_id);
+        values.slug && formData.append('slug', values.slug);
+        values.name && formData.append('name', values.name);
+        values.description && formData.append('description', values.description);
+        values.meta_title && formData.append('meta_title', values.meta_title);
+        values.meta_keyword && formData.append('meta_keyword', values.meta_keyword);
+        values.meta_descrip && formData.append('meta_descrip', values.meta_descrip);
+        values.selling_price && formData.append('selling_price', values.selling_price);
+        values.origin_price && formData.append('origin_price', values.origin_price);
+        values.quantity && formData.append('quantity', values.quantity);
+        values.brand && formData.append('brand', values.brand);
+        values.featured && formData.append('featured', values.featured);
+        values.popular && formData.append('popular', values.popular);
+        values.status && formData.append('status', values.status);
+
+        ApiApp.editQuestionsId(values.id, formData).then((res) => {
+            if (res.status === 200) {
+                successNotification('top', '', res.data.message);
+                setIsModalEdit(false);
+                setLoading(true);
+            } else if (res.status === 422) {
+                console.log(res.data.errors);
+            }
+        });
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -51,10 +63,10 @@ const ViewQuestionsModalEdit = ({ qustion, isModalEdit, setIsModalEdit }: any) =
             onCancel={handleCancel}
         >
             <Form
+                preserve={false}
                 form={form}
                 name="question_add"
                 onFinish={onFinish}
-                // initialValues={initForm}
                 onFinishFailed={onFinishFailed}
                 className="row-col"
                 labelCol={{ span: 7 }}
@@ -62,62 +74,19 @@ const ViewQuestionsModalEdit = ({ qustion, isModalEdit, setIsModalEdit }: any) =
             >
                 <Tabs defaultActiveKey="1">
                     <Tabs.TabPane tab="Home" key="1">
-                        <Form.Item
-                            initialValue={qustion.category_id}
-                            label={'Category_id'}
-                            name={'category_id'}
-                            rules={[{ required: true, message: 'Пожалуйста выберите категорию!' }]}
-                        >
-                            <Select
-                                onChange={(value) => {
-                                    console.log(value);
-                                }}
-                                placeholder="Выберите категорию!"
-                            >
-                                {categoriesList &&
-                                    categoriesList.map((cat: categoryType) => {
-                                        return (
-                                            <Option key={cat.id} value={cat.id}>
-                                                {cat.name}
-                                            </Option>
-                                        );
-                                    })}
-                            </Select>
-                        </Form.Item>
-
-                        <Form.Item
-                            initialValue={qustion.slug}
-                            label={'Slug'}
-                            name={'slug'}
-                            rules={[{ required: true, message: 'Пожалуйста введите slug!' }]}
-                        >
-                            <Input placeholder="Slug" />
-                        </Form.Item>
-
-                        <Form.Item
-                            initialValue={qustion.name}
-                            label={'Name'}
-                            name="name"
-                            rules={[{ required: true, message: 'Пожалуйста введите Name!' }]}
-                        >
-                            <Input placeholder="Name" />
-                        </Form.Item>
-
-                        <Form.Item initialValue={qustion.description} label={'Description'} name="description">
-                            <Input placeholder="Description" />
-                        </Form.Item>
+                        <HomeForm question={question} />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="SEO Tags" key="2">
-                        <SeoTagsForm />
+                        <SeoTagsForm question={question} />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Other Details" key="3">
-                        <OtherDetailsForm />
+                        <OtherDetailsForm question={question} />
                     </Tabs.TabPane>
                 </Tabs>
 
                 <Form.Item>
                     <Button style={{ width: '40%' }} type="primary" onClick={() => onFinish(form.getFieldsValue())}>
-                        Add Question
+                        Edit Question
                     </Button>
                 </Form.Item>
             </Form>

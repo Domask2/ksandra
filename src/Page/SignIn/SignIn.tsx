@@ -26,9 +26,11 @@ const SignIn = () => {
         ApiApp.login(values)
             .then((res) => {
                 if (res.status === 200) {
+                    console.log(res.data);
                     res.data.token && window.localStorage.setItem('user-token', res.data.token);
                     res.data.name && window.localStorage.setItem('user-name', res.data.name);
                     res.data.email && window.localStorage.setItem('user-email', res.data.email);
+                    res.data.projects_roles && window.localStorage.setItem('projects_roles', res.data.projects_roles);
                     res.data.token && history('/dashboard');
                 }
             })

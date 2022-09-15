@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Layout, Drawer, Affix } from 'antd';
+import { Layout, Drawer } from 'antd';
 import Sidenav from './Sidenav';
 import Header from './Header';
 import Footer from './Footer';
@@ -21,7 +21,10 @@ function Main({ children }) {
     pathname = pathname.replace('/', '');
 
     return (
-        <Layout className={`layout-dashboard ${pathname === 'profile' ? 'layout-profile' : ''}`}>
+        <Layout
+            style={{ width: '1200px', margin: '0 auto' }}
+            className={`layout-dashboard ${pathname === 'profile' ? 'layout-profile' : ''}`}
+        >
             <Drawer
                 title={false}
                 placement={'right'}

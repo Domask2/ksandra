@@ -17,6 +17,8 @@ import { categoryType } from '../Page/Category/categoryType';
 import Question from '../Page/Questions/Question';
 import AddQuestion from '../Page/AddQuestions/AddQuestions';
 import ViewQuestion from '../Page/ViewQuestion/ViewQuestion';
+import Roles from '../components/Roles';
+import QuestionDetails from '../Page/Questions/QuestionDetails';
 // import GoogleCallback from '../Page/GoogleCallback';
 
 const Routing = () => {
@@ -42,17 +44,24 @@ const Routing = () => {
                 <Route path={'/dashboard'} element={<Home />} />
                 <Route path={'/category'} element={<Category />} />
                 <Route path={'/newUser'} element={<NewUser />} />
-                <Route path={'/addQuestion'} element={<AddQuestion />} />
-                <Route path={'/viewQuestion'} element={<ViewQuestion />} />
 
                 {categories &&
                     categories.map((cat: categoryType) => {
-                        return <Route key={cat.id} path={cat.slug} element={<Question id={cat.id} />} />;
+                        return (
+                            <Route key={cat.id}>
+                                <Route path={`question/:${cat.slug}`} element={<Question />} />
+                                <Route path={`question/:${cat.slug}/:slug`} element={<QuestionDetails />} />
+                            </Route>
+                        );
                     })}
-
-                <Route path="*" element={<NoteFoundPage />} />
             </Route>
 
+            <Route element={<Roles />}>
+                <Route path={'/addQuestion'} element={<AddQuestion />} />
+                <Route path={'/viewQuestion'} element={<ViewQuestion />} />
+            </Route>
+
+            <Route path="*" element={<NoteFoundPage />} />
             <Route path="reset-password" element={<ResetPassword />} />
             {/*<Route path="/" element={<SignIn />} />*/}
             {/*<Route path="/auth/google" element={<GoogleCallback />} />*/}
