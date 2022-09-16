@@ -106,4 +106,29 @@ export const ApiApp = {
         instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
         return instance.get(`/api/fetchQuestionId/${slug}/${id}`).then((response) => response);
     },
+
+    addQuantityQuestion(values: { question_id: number; question_quantity: number }) {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.post(`/api/addQuantityQuestion`, values).then((response) => response);
+    },
+
+    cart() {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.get(`/api/cart`).then((response) => response);
+    },
+
+    updateCartQuantity(id: string, scope: string) {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.put(`/api/cartUpdateQuantity/${id}/${scope}`).then((response) => response);
+    },
+
+    deleteCartItem(id: string) {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.delete(`/api/deleteCartItem/${id}`).then((response) => response);
+    },
+
+    profile() {
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
+        return instance.get(`/api/profile`).then((response) => response);
+    },
 };

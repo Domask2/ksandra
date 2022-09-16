@@ -96,6 +96,19 @@ const Sidenav = ({ color }) => {
                         <span className="label">Profile</span>
                     </NavLink>
                 </Menu.Item>
+                <Menu.Item key="51">
+                    <NavLink to="/cart">
+                        <span
+                            className="icon"
+                            style={{
+                                background: page === 'profile' ? color : '',
+                            }}
+                        >
+                            {profile}
+                        </span>
+                        <span className="label">Cart</span>
+                    </NavLink>
+                </Menu.Item>
                 {roles && roles === 'admin' && (
                     <>
                         {' '}

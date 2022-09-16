@@ -19,6 +19,8 @@ import AddQuestion from '../Page/AddQuestions/AddQuestions';
 import ViewQuestion from '../Page/ViewQuestion/ViewQuestion';
 import Roles from '../components/Roles';
 import QuestionDetails from '../Page/Questions/QuestionDetails';
+import Cart from '../Page/Cart/Cart';
+import Profile from '../Page/Profile/Profile';
 // import GoogleCallback from '../Page/GoogleCallback';
 
 const Routing = () => {
@@ -44,6 +46,8 @@ const Routing = () => {
                 <Route path={'/dashboard'} element={<Home />} />
                 <Route path={'/category'} element={<Category />} />
                 <Route path={'/newUser'} element={<NewUser />} />
+                <Route path={'/cart'} element={<Cart />} />
+                <Route path={'/profile'} element={<Profile />} />
 
                 {categories &&
                     categories.map((cat: categoryType) => {

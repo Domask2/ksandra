@@ -65,7 +65,7 @@ const Question: FC = () => {
                     spy={true}
                     smooth={true}
                     offset={0}
-                    duration={500}
+                    duration={750}
                     // onSetActive={scroll.scrollToTop}
                 >
                     Вопрос {index + 1}
