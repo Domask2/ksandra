@@ -4,7 +4,7 @@ import { Button, Card, Col, Form, Tabs } from 'antd';
 import HomeForm from './HomeForm';
 import SeoTagsForm from './SeoTagsForm';
 import OtherDetailsForm from './OtherDetailsForm';
-import { ApiApp } from '../../Api/Auth';
+import { ApiApp } from '../../saga/Api/Auth';
 import { successNotification } from '../../source/notification';
 import { initForm, questionType } from './type-question';
 import question from '../Questions/Question';

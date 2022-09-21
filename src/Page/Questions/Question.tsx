@@ -2,10 +2,10 @@ import * as React from 'react';
 import { FunctionComponent as FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Link as LinkScroll, Element, animateScroll as scroll } from 'react-scroll';
-import { ApiApp } from '../../Api/Auth';
 import { Card, Col, Row } from 'antd';
 import { initCategory } from '../Category/categoryType';
 import { initForm as initQuestion } from '../AddQuestions/type-question';
+import { ApiApp } from '../../saga/Api/Auth';
 
 const Question: FC = () => {
     const { js } = useParams();

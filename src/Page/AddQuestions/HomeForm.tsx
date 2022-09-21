@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Form, Input, Select } from 'antd';
 import { categoryType } from '../Category/categoryType';
 import { FunctionComponent as FC, useEffect, useState } from 'react';
-import { ApiApp } from '../../Api/Auth';
+import { ApiApp } from '../../saga/Api/Auth';
 import { questionType } from './type-question';
 const { Option } = Select;
 

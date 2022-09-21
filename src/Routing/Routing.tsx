@@ -12,7 +12,7 @@ import SignUp from '../Page/SignUp/SignUp';
 import Home from '../Page/Home/Home';
 import ForgotPassword from '../Page/ForgotPassword';
 import Category from '../Page/Category/Category';
-import { ApiApp } from '../Api/Auth';
+import { ApiApp } from '../saga/Api/Auth';
 import { categoryType } from '../Page/Category/categoryType';
 import Question from '../Page/Questions/Question';
 import AddQuestion from '../Page/AddQuestions/AddQuestions';

@@ -1,9 +1,7 @@
 import axios from 'axios';
-import { categoryType } from '../Page/Category/categoryType';
-import { questionType } from '../Page/AddQuestions/type-question';
+import { categoryType } from '../../Page/Category/categoryType';
 
 const baseUrl = 'http://localhost:80';
-
 export const instance = axios.create({
     baseURL: baseUrl,
     headers: {
@@ -21,6 +19,10 @@ interface LoginInterface {
 }
 
 export const ApiApp = {
+    initializeApp() {
+        return instance.get<any>('/api/free/init').then((response) => response.data);
+    },
+
     login(values: any) {
         return instance.post<LoginInterface>('/api/auth/login/', values).then((response) => response);
     },

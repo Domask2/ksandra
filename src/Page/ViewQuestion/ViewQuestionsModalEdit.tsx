@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { memo } from 'react';
 import { Button, Form, Modal, Tabs } from 'antd';
-
+import { ApiApp } from '../../saga/Api/Auth';
 import SeoTagsForm from '../AddQuestions/SeoTagsForm';
 import OtherDetailsForm from '../AddQuestions/OtherDetailsForm';
 import HomeForm from '../AddQuestions/HomeForm';
-import { ApiApp } from '../../Api/Auth';
 import { successNotification } from '../../source/notification';
 
 const ViewQuestionsModalEdit = ({ question, isModalEdit, setIsModalEdit, setLoading }: any) => {

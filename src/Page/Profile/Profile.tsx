@@ -3,7 +3,7 @@ import { FunctionComponent as FC, useEffect, useState } from 'react';
 import { Card, Col, Radio, Row, Typography } from 'antd';
 import Paragraph from 'antd/lib/typography/Paragraph';
 import { list } from '../Home/template';
-import { ApiApp } from '../../Api/Auth';
+import { ApiApp } from '../../saga/Api/Auth';
 const { Title } = Typography;
 
 const Profile: FC = () => {

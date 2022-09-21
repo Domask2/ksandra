@@ -3,7 +3,7 @@ import { FunctionComponent as FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Card, Col, Input, Row } from 'antd';
 import { initForm as initQuestion, questionType } from '../AddQuestions/type-question';
-import { ApiApp } from '../../Api/Auth';
+import { ApiApp } from '../../saga/Api/Auth';
 import { successNotification } from '../../source/notification';
 
 const QuestionDetails: FC = () => {

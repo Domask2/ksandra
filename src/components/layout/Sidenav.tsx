@@ -4,23 +4,16 @@ import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import { billing, dashboard, tables } from './template-Sidenav';
 import { profile } from './template-Header';
-import { useEffect, useState } from 'react';
-import { ApiApp } from '../../Api/Auth';
 import { categoryType } from '../../Page/Category/categoryType';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { RootState } from '../../redux/redux.store';
+import { getCategory } from '../../redux/app/app.selector';
 
 const Sidenav = ({ color }) => {
     const { pathname } = useLocation();
     const page = pathname.replace('/', '');
-    const [categories, setCategories] = useState([]);
     const roles = localStorage.getItem('projects_roles');
-
-    useEffect(() => {
-        ApiApp.viewCategory().then((res) => {
-            if (res.status === 200) {
-                setCategories(res.data.category);
-            }
-        });
-    }, []);
+    const categories = useTypedSelector((state: RootState) => getCategory(state));
 
     return (
         <>
