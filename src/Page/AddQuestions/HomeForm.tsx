@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Form, Input, Select } from 'antd';
 import { categoryType } from '../Category/categoryType';
-import { FunctionComponent as FC, useEffect, useState } from 'react';
-import { ApiApp } from '../../saga/Api/Auth';
+import { FunctionComponent as FC } from 'react';
 import { questionType } from './type-question';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { RootState } from '../../redux/redux.store';
+import { getCategory } from '../../redux/category/category.selector';
 const { Option } = Select;
 
 interface HomeFormType {
@@ -11,15 +13,7 @@ interface HomeFormType {
 }
 
 const HomeForm: FC<HomeFormType> = ({ question }) => {
-    const [categoriesList, setCategoriesList] = useState([]);
-
-    useEffect(() => {
-        ApiApp.allCategory().then((res) => {
-            if (res.status === 200) {
-                setCategoriesList(res.data.category);
-            }
-        });
-    }, []);
+    const categories = useTypedSelector((state: RootState) => getCategory(state));
     return (
         <>
             <Form.Item
@@ -34,8 +28,8 @@ const HomeForm: FC<HomeFormType> = ({ question }) => {
                     }}
                     placeholder="Выберите категорию!"
                 >
-                    {categoriesList?.length &&
-                        categoriesList.map((cat: categoryType) => {
+                    {categories?.length &&
+                        categories.map((cat: categoryType) => {
                             return (
                                 <Option key={cat.id} value={cat.id}>
                                     {cat.name}

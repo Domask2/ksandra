@@ -12,7 +12,7 @@ export const successNotification = (placement: NotificationPlacement, message: s
 
 export const errorNotification = (placement: NotificationPlacement, message: string, desc: string) => {
     notification.error({
-        duration: 1,
+        duration: 2,
         message: message,
         description: desc,
         placement,

@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Menu, Button } from 'antd';
 import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
-import { billing, dashboard, tables } from './template-Sidenav';
+import { dashboard } from './template-Sidenav';
 import { profile } from './template-Header';
 import { categoryType } from '../../Page/Category/categoryType';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { RootState } from '../../redux/redux.store';
-import { getCategory } from '../../redux/app/app.selector';
+import { getCategory } from '../../redux/category/category.selector';
 
 const Sidenav = ({ color }) => {
     const { pathname } = useLocation();
@@ -47,32 +47,32 @@ const Sidenav = ({ color }) => {
                         <span className="label">Dashboard</span>
                     </NavLink>
                 </Menu.Item>
-                <Menu.Item key="2">
-                    <NavLink to="/tables">
-                        <span
-                            className="icon"
-                            style={{
-                                background: page === 'tables' ? color : '',
-                            }}
-                        >
-                            {tables(color)}
-                        </span>
-                        <span className="label">Tables</span>
-                    </NavLink>
-                </Menu.Item>
-                <Menu.Item key="3">
-                    <NavLink to="/billing">
-                        <span
-                            className="icon"
-                            style={{
-                                background: page === 'billing' ? color : '',
-                            }}
-                        >
-                            {billing(color)}
-                        </span>
-                        <span className="label">Billing</span>
-                    </NavLink>
-                </Menu.Item>
+                {/*<Menu.Item key="2">*/}
+                {/*    <NavLink to="/tables">*/}
+                {/*        <span*/}
+                {/*            className="icon"*/}
+                {/*            style={{*/}
+                {/*                background: page === 'tables' ? color : '',*/}
+                {/*            }}*/}
+                {/*        >*/}
+                {/*            {tables(color)}*/}
+                {/*        </span>*/}
+                {/*        <span className="label">Tables</span>*/}
+                {/*    </NavLink>*/}
+                {/*</Menu.Item>*/}
+                {/*<Menu.Item key="3">*/}
+                {/*    <NavLink to="/billing">*/}
+                {/*        <span*/}
+                {/*            className="icon"*/}
+                {/*            style={{*/}
+                {/*                background: page === 'billing' ? color : '',*/}
+                {/*            }}*/}
+                {/*        >*/}
+                {/*            {billing(color)}*/}
+                {/*        </span>*/}
+                {/*        <span className="label">Billing</span>*/}
+                {/*    </NavLink>*/}
+                {/*</Menu.Item>*/}
                 <Menu.Item className="menu-item-header" key="4">
                     Пользователь
                 </Menu.Item>
@@ -89,7 +89,7 @@ const Sidenav = ({ color }) => {
                         <span className="label">Profile</span>
                     </NavLink>
                 </Menu.Item>
-                <Menu.Item key="51">
+                <Menu.Item key="10">
                     <NavLink to="/cart">
                         <span
                             className="icon"
@@ -108,7 +108,7 @@ const Sidenav = ({ color }) => {
                         <Menu.Item className="menu-item-header" key="6">
                             Админ
                         </Menu.Item>
-                        <Menu.Item key="7">
+                        <Menu.Item key="73434">
                             <NavLink to="/category">
                                 <span
                                     className="icon"

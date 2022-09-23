@@ -7,7 +7,6 @@ const appReducer = (state = initialStateApp, action: AppActionCreatorsType): IAp
             return {
                 ...state,
                 initialized: true,
-                category: action.settings.category,
             };
 
         default:

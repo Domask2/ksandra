@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Route } from 'react-router';
 import { Routes } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import NonAuthProvider from '../components/NonAuthProvider';
 import AuthProvider from '../components/AuthProvider';
 import NoteFoundPage from '../Page/NoteFoundPage';
@@ -12,8 +11,6 @@ import SignUp from '../Page/SignUp/SignUp';
 import Home from '../Page/Home/Home';
 import ForgotPassword from '../Page/ForgotPassword';
 import Category from '../Page/Category/Category';
-import { ApiApp } from '../saga/Api/Auth';
-import { categoryType } from '../Page/Category/categoryType';
 import Question from '../Page/Questions/Question';
 import AddQuestion from '../Page/AddQuestions/AddQuestions';
 import ViewQuestion from '../Page/ViewQuestion/ViewQuestion';
@@ -21,19 +18,14 @@ import Roles from '../components/Roles';
 import QuestionDetails from '../Page/Questions/QuestionDetails';
 import Cart from '../Page/Cart/Cart';
 import Profile from '../Page/Profile/Profile';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import { RootState } from '../redux/redux.store';
+import { categoryType } from '../Page/Category/categoryType';
+import { getCategory } from '../redux/category/category.selector';
 // import GoogleCallback from '../Page/GoogleCallback';
 
 const Routing = () => {
-    const [categories, setCategories] = useState<categoryType[] | []>([]);
-
-    useEffect(() => {
-        ApiApp.viewCategory().then((res) => {
-            if (res.status === 200) {
-                setCategories(res.data.category);
-            }
-        });
-    }, []);
-
+    const categories = useTypedSelector((state: RootState) => getCategory(state));
     return (
         <Routes>
             <Route element={<NonAuthProvider />}>
@@ -50,9 +42,9 @@ const Routing = () => {
                 <Route path={'/profile'} element={<Profile />} />
 
                 {categories &&
-                    categories.map((cat: categoryType) => {
+                    categories.map((cat: categoryType, index) => {
                         return (
-                            <Route key={cat.id}>
+                            <Route key={cat.id + index}>
                                 <Route path={`question/:${cat.slug}`} element={<Question />} />
                                 <Route path={`question/:${cat.slug}/:slug`} element={<QuestionDetails />} />
                             </Route>

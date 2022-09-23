@@ -18,7 +18,6 @@ export interface IAppInitialized {
     auth: IAuth;
     initialized: boolean;
     initializeError: string;
-    category: any;
 }
 
 const pr = localStorage.getItem('projects-roles');
@@ -40,5 +39,4 @@ export const initialStateApp: IAppInitialized = {
         authenticated: localStorage.getItem('user-token') !== null,
         projects_roles: newPr,
     },
-    category: [],
 };

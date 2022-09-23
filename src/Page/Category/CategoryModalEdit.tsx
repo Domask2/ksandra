@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FunctionComponent as FC } from 'react';
 import { Button, Form, Input, Modal } from 'antd';
-import { ApiApp } from '../../saga/Api/Auth';
+import { CategoryApi } from '../../saga/Api/CategoryApi';
 import { errorNotification, successNotification } from '../../source/notification';
 import { CategoryModalEditType } from './categoryType';
 
@@ -16,7 +16,7 @@ const CategoryModalEdit: FC<CategoryModalEditType> = ({ currentCategory, isModal
 
     const onFinishModal = (values) => {
         setIsModalEdit(false);
-        ApiApp.updateCategory(currentCategory.id, values).then((res) => {
+        CategoryApi.categoryUpdate(currentCategory.id, values).then((res) => {
             if (res.data.status === 200) {
                 setLoading(true);
                 successNotification('top', '', res.data.message);
@@ -63,27 +63,6 @@ const CategoryModalEdit: FC<CategoryModalEditType> = ({ currentCategory, isModal
 
                 <Form.Item initialValue={currentCategory.description} label={'Description'} name="description">
                     <Input placeholder="Description" />
-                </Form.Item>
-
-                <Form.Item initialValue={currentCategory.status} label={'Status'} name="status">
-                    <Input placeholder="Status" />
-                </Form.Item>
-
-                <Form.Item
-                    initialValue={currentCategory.meta_title}
-                    label={'meta_title'}
-                    name="meta_title"
-                    rules={[{ required: true, message: 'Пожалуйста введите meta_title!' }]}
-                >
-                    <Input placeholder="meta_title" />
-                </Form.Item>
-
-                <Form.Item initialValue={currentCategory.meta_keyword} label={'meta_keyword'} name="meta_keyword">
-                    <Input placeholder="meta_keyword" />
-                </Form.Item>
-
-                <Form.Item initialValue={currentCategory.meta_descrip} label={'meta_descrip'} name="meta_descrip">
-                    <Input placeholder="meta_descrip" />
                 </Form.Item>
 
                 <Form.Item initialValue={currentCategory.id} hidden={true} label={'id'} name="id">
