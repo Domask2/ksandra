@@ -22,6 +22,7 @@ import { useTypedSelector } from '../hooks/useTypedSelector';
 import { RootState } from '../redux/redux.store';
 import { categoryType } from '../Page/Category/categoryType';
 import { getCategory } from '../redux/category/category.selector';
+import Quest from '../Page/Quest/Quest';
 // import GoogleCallback from '../Page/GoogleCallback';
 
 const Routing = () => {
@@ -55,6 +56,7 @@ const Routing = () => {
             <Route element={<Roles />}>
                 <Route path={'/addQuestion'} element={<AddQuestion />} />
                 <Route path={'/viewQuestion'} element={<ViewQuestion />} />
+                <Route path={'/question'} element={<Quest />} />
             </Route>
 
             <Route path="*" element={<NoteFoundPage />} />

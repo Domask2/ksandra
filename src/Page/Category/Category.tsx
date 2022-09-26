@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { FunctionComponent as FC, useState } from 'react';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { CategoryApi } from '../../saga/Api/CategoryApi';
 import CategoryModalEdit from './CategoryModalEdit';
 import CategoryModalAdd from './CategoryModalAdd';
 import { getCategory, getCategoryLoading } from '../../redux/category/category.selector';
-import { successNotification } from '../../source/notification';
 import { Button, Card, Col, Row, Descriptions, Popconfirm, Tooltip, Spin } from 'antd';
 import { deletebtn, pencil } from './template-category';
 import { categoryType, initCategory } from './categoryType';

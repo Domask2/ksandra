@@ -12,7 +12,7 @@ export const columns = (setIsModalEdit, setQuestion, deleteQuestion) => {
             title: 'Category',
             dataIndex: 'category',
             key: 'category',
-            render: (tag) => <span>{tag.name}</span>,
+            render: (tag) => <span>{tag?.name ? tag.name : ''}</span>,
         },
         {
             title: 'Name',
@@ -54,7 +54,7 @@ export const columns = (setIsModalEdit, setQuestion, deleteQuestion) => {
             title: 'Image',
             dataIndex: 'image',
             key: 'image',
-            render: (tag, record) => <span>{tag ? <img src={`http://localhost/${tag}`} width={'50px'} /> : ''}</span>,
+            render: (tag) => <span>{tag ? <img src={`http://localhost/${tag}`} width={'50px'} /> : ''}</span>,
         },
         {
             title: 'Origin_price',

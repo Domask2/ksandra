@@ -168,6 +168,20 @@ const Sidenav = ({ color }) => {
                         </Menu.SubMenu>{' '}
                     </>
                 )}
+
+                <Menu.Item key="102">
+                    <NavLink to="/question">
+                        <span
+                            className="icon"
+                            style={{
+                                background: page === 'profile' ? color : '',
+                            }}
+                        >
+                            {profile}
+                        </span>
+                        <span className="label">Qusetion</span>
+                    </NavLink>
+                </Menu.Item>
             </Menu>
             <div className="aside-footer">
                 <div
