@@ -18,6 +18,7 @@ export const CategoryApi = {
     },
 
     categoryDestroy(id: number) {
+        console.log(id);
         instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
         return instance.delete(`/api/category/destroy/${id}`).then((response) => response);
     },

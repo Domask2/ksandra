@@ -1,8 +1,10 @@
+import { categoryType } from '../../Page/Category/categoryType';
+
 export interface ICategory {
     loading: boolean;
     error: boolean;
     message: string;
-    category: any;
+    category: categoryType | Array<categoryType> | [];
 }
 
 export const initialStateCategory: ICategory = {

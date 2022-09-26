@@ -7,13 +7,14 @@ import { profile } from './template-Header';
 import { categoryType } from '../../Page/Category/categoryType';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { RootState } from '../../redux/redux.store';
-import { getCategory } from '../../redux/category/category.selector';
+import { getCategory, getCategoryLoading } from '../../redux/category/category.selector';
 
 const Sidenav = ({ color }) => {
     const { pathname } = useLocation();
     const page = pathname.replace('/', '');
     const roles = localStorage.getItem('projects_roles');
     const categories = useTypedSelector((state: RootState) => getCategory(state));
+    const loading = useTypedSelector((state: RootState) => getCategoryLoading(state));
 
     return (
         <>
@@ -23,7 +24,8 @@ const Sidenav = ({ color }) => {
             </div>
             <hr />
             <Menu theme="light" mode="inline" inlineIndent={16}>
-                {categories &&
+                {loading &&
+                    categories &&
                     categories.map((cat: categoryType, index) => {
                         return (
                             <Menu.Item key={index + cat.id}>

@@ -1,25 +1,16 @@
 import * as React from 'react';
-import { FunctionComponent as FC, useEffect } from 'react';
+import { FunctionComponent as FC } from 'react';
+import { useActions } from '../../hooks/useActions';
 import { Button, Form, Input } from 'antd';
 import { initCategory, CategoryFormType } from './categoryType';
-import { useActions } from '../../hooks/useActions';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { RootState } from '../../redux/redux.store';
-import { getCategoryLoading } from '../../redux/category/category.selector';
 
 const CategoryForm: FC<CategoryFormType> = ({ setIsModalAdd }) => {
     const [form] = Form.useForm();
-    const loading = useTypedSelector((state: RootState) => getCategoryLoading(state));
     const { categoryStoreAction } = useActions();
-
-    useEffect(() => {
-        if (loading.loading) {
-            setIsModalAdd(false);
-        }
-    }, [loading]);
 
     const onFinish = (values) => {
         categoryStoreAction(values);
+        setIsModalAdd(false);
     };
 
     const onFinishFailed = (errorInfo) => {

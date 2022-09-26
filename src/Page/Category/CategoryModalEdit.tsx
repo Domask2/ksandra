@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { FunctionComponent as FC } from 'react';
 import { Button, Form, Input, Modal } from 'antd';
-import { CategoryApi } from '../../saga/Api/CategoryApi';
-import { errorNotification, successNotification } from '../../source/notification';
 import { CategoryModalEditType } from './categoryType';
+import { useActions } from '../../hooks/useActions';
 
-const CategoryModalEdit: FC<CategoryModalEditType> = ({ currentCategory, isModalEdit, setIsModalEdit, setLoading }) => {
+const CategoryModalEdit: FC<CategoryModalEditType> = ({ currentCategory, isModalEdit, setIsModalEdit }) => {
+    const { categoryUpdateAction } = useActions();
+
     const handleOk = () => {
         setIsModalEdit(false);
     };
@@ -15,15 +16,8 @@ const CategoryModalEdit: FC<CategoryModalEditType> = ({ currentCategory, isModal
     };
 
     const onFinishModal = (values) => {
+        categoryUpdateAction(currentCategory.id, values);
         setIsModalEdit(false);
-        CategoryApi.categoryUpdate(currentCategory.id, values).then((res) => {
-            if (res.data.status === 200) {
-                setLoading(true);
-                successNotification('top', '', res.data.message);
-            } else if (res.data.status === 422) {
-                errorNotification('top', '', res.data.errors);
-            }
-        });
     };
 
     return (
