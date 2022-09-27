@@ -10,9 +10,6 @@ import QuestionModalEdit from './QuestionModalEdit';
 import { categoryType, initCategory } from '../Category/categoryType';
 
 const Category: FC = () => {
-    const categories = useTypedSelector((state: RootState) => getCategory(state));
-    const loading = useTypedSelector((state: RootState) => getCategoryLoading(state));
-    const { categoryDestroyAction } = useActions();
     const [isModalEdit, setIsModalEdit] = useState(false);
     const [isModalAdd, setIsModalAdd] = useState(false);
     const [currentCategory, setCurrentCategory] = useState<categoryType>(initCategory);
@@ -26,16 +23,12 @@ const Category: FC = () => {
         setIsModalAdd(true);
     };
 
-    const deleteCategory = (id: number) => {
-        categoryDestroyAction(id);
-    };
-
     const titleCardCategory = () => {
         return (
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h2 style={{ margin: '0' }}>Категории вопросов</h2>
+                <h2 style={{ margin: '0' }}>Список вопросов</h2>
 
-                <Tooltip title="Добавить категорию">
+                <Tooltip title="Добавить вопрос">
                     <Button type={'primary'} onClick={showModalAdd}>
                         ДОБАВИТЬ НОВУЮ КАТЕГОРИЮ
                     </Button>
@@ -49,7 +42,7 @@ const Category: FC = () => {
             <Row gutter={[24, 0]}>
                 <Col xs={24} sm={20} md={18} lg={20} xl={24} className="mb-24">
                     <Card className="criclebox cardbody" title={titleCardCategory()}>
-                        <Row gutter={[24, 24]}>dfd</Row>
+                        <Row gutter={[24, 24]}></Row>
                     </Card>
                 </Col>
             </Row>

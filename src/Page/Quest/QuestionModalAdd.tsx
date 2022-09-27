@@ -1,19 +1,28 @@
 import * as React from 'react';
 import { memo } from 'react';
-import { Button, Form, Modal } from 'antd';
+import { Button, Form, Modal, Select } from 'antd';
 import { ApiApp } from '../../saga/Api/Auth';
 
 import { successNotification } from '../../source/notification';
+import { categoryType } from '../Category/categoryType';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { RootState } from '../../redux/redux.store';
+import { getCategory } from '../../redux/category/category.selector';
+import { getLevel } from '../../redux/level/level.selector';
+import { getClassification } from '../../redux/classification/classification.selector';
 
-const QuestionModalAdd = ({ question, isModalEdit, setIsModalEdit, setLoading }: any) => {
+const QuestionModalAdd = ({ isModalAdd, setIsModalAdd }: any) => {
     const [form] = Form.useForm();
+    const categories = useTypedSelector((state: RootState) => getCategory(state));
+    const levels = useTypedSelector((state: RootState) => getLevel(state));
+    const classifications = useTypedSelector((state: RootState) => getClassification(state));
 
     const handleOk = () => {
-        setIsModalEdit(false);
+        setIsModalAdd(false);
     };
 
     const handleCancel = () => {
-        setIsModalEdit(false);
+        setIsModalAdd(false);
     };
 
     const onFinish = (values) => {
@@ -37,8 +46,8 @@ const QuestionModalAdd = ({ question, isModalEdit, setIsModalEdit, setLoading }:
         ApiApp.editQuestionsId(values.id, formData).then((res) => {
             if (res.status === 200) {
                 successNotification('top', '', res.data.message);
-                setIsModalEdit(false);
-                setLoading(true);
+                setIsModalAdd(false);
+                // setLoading(true);
             } else if (res.status === 422) {
                 console.log(res.data.errors);
             }
@@ -52,9 +61,9 @@ const QuestionModalAdd = ({ question, isModalEdit, setIsModalEdit, setLoading }:
     return (
         <Modal
             destroyOnClose
-            title="Edit Category Modal"
+            title="Добавить вопрос"
             maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
-            visible={isModalEdit}
+            visible={isModalAdd}
             footer={false}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -69,9 +78,60 @@ const QuestionModalAdd = ({ question, isModalEdit, setIsModalEdit, setLoading }:
                 labelCol={{ span: 7 }}
                 wrapperCol={{ span: 17 }}
             >
+                <Form.Item
+                    label={'Категория'}
+                    name={'category_id'}
+                    rules={[{ required: true, message: 'Пожалуйста выберите категорию!' }]}
+                >
+                    <Select placeholder="Выберите категорию!">
+                        {categories?.length &&
+                            categories.map((cat: categoryType) => {
+                                return (
+                                    <Select.Option key={cat.id} value={cat.id}>
+                                        {cat.name}
+                                    </Select.Option>
+                                );
+                            })}
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    label={'Сложность'}
+                    name={'level_id'}
+                    rules={[{ required: true, message: 'Пожалуйста выберите сложность!' }]}
+                >
+                    <Select placeholder="Выберите сложность!">
+                        {levels?.length &&
+                            levels.map((level: any) => {
+                                return (
+                                    <Select.Option key={level.id} value={level.id}>
+                                        {level.level}
+                                    </Select.Option>
+                                );
+                            })}
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    label={'Классификация'}
+                    name={'classification_id'}
+                    rules={[{ required: true, message: 'Пожалуйста выберите классификацию!' }]}
+                >
+                    <Select placeholder="Выберите классификацию!">
+                        {classifications?.length &&
+                            classifications.map((classif: any) => {
+                                return (
+                                    <Select.Option key={classif.id} value={classif.id}>
+                                        {classif.classification}
+                                    </Select.Option>
+                                );
+                            })}
+                    </Select>
+                </Form.Item>
+
                 <Form.Item>
                     <Button style={{ width: '40%' }} type="primary" onClick={() => onFinish(form.getFieldsValue())}>
-                        Edit Question
+                        Добавить вопрос
                     </Button>
                 </Form.Item>
             </Form>
