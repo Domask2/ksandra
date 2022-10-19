@@ -6,7 +6,7 @@ const levelReducer = (state = initialStateLevel, action: LevelActionCreatorsType
         case LevelActionsEnum.LEVEL_SUCCESS:
             return {
                 ...state,
-                level: action.level,
+                ...action.level,
             };
 
         default:

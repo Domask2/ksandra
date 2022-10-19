@@ -20,7 +20,7 @@ const categoryReducer = (state = initialStateCategory, action: CategoryActionCre
             return {
                 ...state,
                 loading: false,
-                category: [...category, action.values],
+                // category: [...category, action.values],
             };
         case CategoryActionsEnum.CATEGORY_STORE_FAILED:
             return {

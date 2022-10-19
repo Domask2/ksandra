@@ -11,7 +11,6 @@ import {
     CategoryUpdateFailedActionType,
     CategoryUpdateSuccessActionType,
 } from './category.action.types';
-import { ICategory } from './category.initial';
 import { categoryType } from '../../Page/Category/categoryType';
 
 const categoryActionCreators = {

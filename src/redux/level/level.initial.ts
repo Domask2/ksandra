@@ -1,7 +1,6 @@
 export interface ILevel {
-    level: [];
+    id: number;
+    level: string;
 }
 
-export const initialStateLevel: ILevel = {
-    level: [],
-};
+export const initialStateLevel = [];

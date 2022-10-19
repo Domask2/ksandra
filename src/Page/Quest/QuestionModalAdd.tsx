@@ -1,21 +1,29 @@
 import * as React from 'react';
 import { memo } from 'react';
-import { Button, Form, Modal, Select } from 'antd';
-import { ApiApp } from '../../saga/Api/Auth';
-
-import { successNotification } from '../../source/notification';
-import { categoryType } from '../Category/categoryType';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { RootState } from '../../redux/redux.store';
+import { useActions } from '../../hooks/useActions';
 import { getCategory } from '../../redux/category/category.selector';
 import { getLevel } from '../../redux/level/level.selector';
 import { getClassification } from '../../redux/classification/classification.selector';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { Button, Form, Modal, Select, Input, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { RootState } from '../../redux/redux.store';
+import { ILevel } from '../../redux/level/level.initial';
+import { categoryType } from '../Category/categoryType';
 
 const QuestionModalAdd = ({ isModalAdd, setIsModalAdd }: any) => {
+    const { questionStoreAction } = useActions();
     const [form] = Form.useForm();
     const categories = useTypedSelector((state: RootState) => getCategory(state));
     const levels = useTypedSelector((state: RootState) => getLevel(state));
     const classifications = useTypedSelector((state: RootState) => getClassification(state));
+
+    // const normFile = (e: any) => {
+    //     if (Array.isArray(e)) {
+    //         return e;
+    //     }
+    //     return e?.fileList;
+    // };
 
     const handleOk = () => {
         setIsModalAdd(false);
@@ -27,31 +35,16 @@ const QuestionModalAdd = ({ isModalAdd, setIsModalAdd }: any) => {
 
     const onFinish = (values) => {
         const formData = new FormData();
-        formData.append('image', values.image && values.image[0].originFileObj);
-        values.category_id && formData.append('category_id', values.category_id);
         values.slug && formData.append('slug', values.slug);
-        values.name && formData.append('name', values.name);
-        values.description && formData.append('description', values.description);
-        values.meta_title && formData.append('meta_title', values.meta_title);
-        values.meta_keyword && formData.append('meta_keyword', values.meta_keyword);
-        values.meta_descrip && formData.append('meta_descrip', values.meta_descrip);
-        values.selling_price && formData.append('selling_price', values.selling_price);
-        values.origin_price && formData.append('origin_price', values.origin_price);
-        values.quantity && formData.append('quantity', values.quantity);
-        values.brand && formData.append('brand', values.brand);
-        values.featured && formData.append('featured', values.featured);
-        values.popular && formData.append('popular', values.popular);
-        values.status && formData.append('status', values.status);
+        values.category_id && formData.append('category_id', values.category_id);
+        values.level_id && formData.append('level_id', values.level_id);
+        values.classification_id && formData.append('classification_id', values.classification_id);
+        values.question && formData.append('question', values.question);
+        values.answer && formData.append('answer', values.answer);
+        // formData.append('image', values.image && values.image[0].originFileObj);
 
-        ApiApp.editQuestionsId(values.id, formData).then((res) => {
-            if (res.status === 200) {
-                successNotification('top', '', res.data.message);
-                setIsModalAdd(false);
-                // setLoading(true);
-            } else if (res.status === 422) {
-                console.log(res.data.errors);
-            }
-        });
+        questionStoreAction(formData);
+        setIsModalAdd(false);
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -67,6 +60,7 @@ const QuestionModalAdd = ({ isModalAdd, setIsModalAdd }: any) => {
             footer={false}
             onOk={handleOk}
             onCancel={handleCancel}
+            width={'800px'}
         >
             <Form
                 preserve={false}
@@ -101,8 +95,8 @@ const QuestionModalAdd = ({ isModalAdd, setIsModalAdd }: any) => {
                     rules={[{ required: true, message: 'Пожалуйста выберите сложность!' }]}
                 >
                     <Select placeholder="Выберите сложность!">
-                        {levels?.length &&
-                            levels.map((level: any) => {
+                        {Object.values(levels)?.length &&
+                            Object.values(levels).map((level: ILevel) => {
                                 return (
                                     <Select.Option key={level.id} value={level.id}>
                                         {level.level}
@@ -128,6 +122,36 @@ const QuestionModalAdd = ({ isModalAdd, setIsModalAdd }: any) => {
                             })}
                     </Select>
                 </Form.Item>
+
+                <Form.Item
+                    label={'Slug'}
+                    name={'slug'}
+                    rules={[{ required: true, message: 'Пожалуйста введите slug!' }]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label={'Вопрос'}
+                    name={'question'}
+                    rules={[{ required: true, message: 'Пожалуйста введите вопрос!' }]}
+                >
+                    <Input.TextArea />
+                </Form.Item>
+
+                <Form.Item
+                    label={'Ответ'}
+                    name={'answer'}
+                    rules={[{ required: true, message: 'Пожалуйста введите ответ!' }]}
+                >
+                    <Input.TextArea />
+                </Form.Item>
+
+                {/*<Form.Item name="image" label="Картинка" valuePropName="fileList" getValueFromEvent={normFile}>*/}
+                {/*    <Upload beforeUpload={() => false} name={'image'}>*/}
+                {/*        <Button icon={<UploadOutlined />}>Загрузить изображение</Button>*/}
+                {/*    </Upload>*/}
+                {/*</Form.Item>*/}
 
                 <Form.Item>
                     <Button style={{ width: '40%' }} type="primary" onClick={() => onFinish(form.getFieldsValue())}>

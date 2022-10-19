@@ -2,8 +2,6 @@ import { categoryType } from '../../Page/Category/categoryType';
 
 export enum CategoryActionsEnum {
     CATEGORY_SUCCESS = 'CATEGORY_SUCCESS',
-    CATEGORY_FAILED = 'CATEGORY_FAILED',
-    CATEGORY = 'CATEGORY',
 
     CATEGORY_STORE_SUCCESS = 'CATEGORY_STORE_SUCCESS',
     CATEGORY_STORE_FAILED = 'CATEGORY_STORE_FAILED',
@@ -19,8 +17,6 @@ export enum CategoryActionsEnum {
 }
 
 export type CategorySuccessActionType = { type: typeof CategoryActionsEnum.CATEGORY_SUCCESS; category: categoryType };
-export type CategoryFailedActionType = { type: typeof CategoryActionsEnum.CATEGORY_FAILED; message: string };
-export type CategoryActionType = { type: typeof CategoryActionsEnum.CATEGORY };
 
 export type CategoryStoreSuccessActionType = {
     type: typeof CategoryActionsEnum.CATEGORY_STORE_SUCCESS;
@@ -56,8 +52,6 @@ export type CategoryDestroyActionType = { type: typeof CategoryActionsEnum.CATEG
 
 export type CategoryActionCreatorsType =
     | CategorySuccessActionType
-    | CategoryFailedActionType
-    | CategoryActionType
     | CategoryStoreSuccessActionType
     | CategoryStoreFailedActionType
     | CategoryStoreActionType

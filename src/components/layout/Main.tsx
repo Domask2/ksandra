@@ -22,7 +22,7 @@ function Main({ children }) {
 
     return (
         <Layout
-            style={{ width: '1200px', margin: '0 auto' }}
+            style={{ width: '1350px', margin: '0 auto' }}
             className={`layout-dashboard ${pathname === 'profile' ? 'layout-profile' : ''}`}
         >
             <Drawer
@@ -32,13 +32,13 @@ function Main({ children }) {
                 onClose={() => setVisible(false)}
                 visible={visible}
                 key={'right'}
-                width={250}
+                width={230}
                 className={'drawer-sidebar'}
             >
                 <Layout className={'layout-dashboard'}>
                     <Sider
                         trigger={null}
-                        width={250}
+                        width={230}
                         theme="light"
                         className={`sider-primary ant-layout-sider-primary ${
                             sidenavType === '#fff' ? 'active-route' : ''
@@ -53,7 +53,7 @@ function Main({ children }) {
                 breakpoint="lg"
                 collapsedWidth="0"
                 trigger={null}
-                width={250}
+                width={230}
                 theme="light"
                 className={`sider-primary ant-layout-sider-primary ${sidenavType === '#fff' ? 'active-route' : ''}`}
                 style={{ background: sidenavType }}
