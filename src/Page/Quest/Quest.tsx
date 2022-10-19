@@ -19,6 +19,7 @@ const Category: FC = () => {
     const [isModalEdit, setIsModalEdit] = useState(false);
     const [isModalAdd, setIsModalAdd] = useState(false);
     const [currentCategory, setCurrentCategory] = useState<categoryType>(initCategory);
+    const [currentQuestion, setCurrentQuestion] = useState();
 
     const loading = useTypedSelector((state: RootState) => getQuestionLoading(state));
     const question = useTypedSelector((state: RootState) => getQuestion(state));
@@ -76,7 +77,7 @@ const Category: FC = () => {
                                     );
                                 },
                             }}
-                            columns={columns(setIsModalEdit, deleteQuestion)}
+                            columns={columns(setIsModalEdit, setCurrentQuestion, deleteQuestion)}
                             dataSource={question}
                         />
 
@@ -84,7 +85,7 @@ const Category: FC = () => {
                         {/*    question={question}*/}
                         {/*    isModalEdit={isModalEdit}*/}
                         {/*    setIsModalEdit={setIsModalEdit}*/}
-                        {/*    setLoading={setLoading}*/}
+                        {/*    // setLoading={setLoading}*/}
                         {/*/>*/}
                     </Card>
                 </Col>
@@ -93,6 +94,7 @@ const Category: FC = () => {
             <QuestionModalAdd isModalAdd={isModalAdd} setIsModalAdd={setIsModalAdd} />
 
             <QuestionModalEdit
+                currentQuestion={currentQuestion}
                 currentCategory={currentCategory}
                 isModalEdit={isModalEdit}
                 setIsModalEdit={setIsModalEdit}

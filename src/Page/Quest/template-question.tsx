@@ -1,7 +1,7 @@
 import { Popconfirm, Table, Tag } from 'antd';
 import * as React from 'react';
 
-export const columns = (setIsModalEdit, deleteQuestion) => {
+export const columns = (setIsModalEdit, setCurrentQuestion, deleteQuestion) => {
     return [
         {
             title: 'id',
@@ -57,7 +57,7 @@ export const columns = (setIsModalEdit, deleteQuestion) => {
                         key={edit}
                         onClick={() => {
                             setIsModalEdit(true);
-                            // setQuestion(record);
+                            setCurrentQuestion(record);
                         }}
                     >
                         EDIT
