@@ -59,7 +59,7 @@ export const ApiApp = {
         return instance.delete(`/api/delete-questions/${id}`).then((response) => response);
     },
 
-    fetchQuestion(slug: string) {
+    fetchQuestion(slug: number) {
         instance.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('user-token');
         return instance.get(`/api/fetchQuestion/${slug}`).then((response) => response);
     },

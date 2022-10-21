@@ -24,11 +24,6 @@ const Category: FC = () => {
     const loading = useTypedSelector((state: RootState) => getQuestionLoading(state));
     const question = useTypedSelector((state: RootState) => getQuestion(state));
 
-    const showModalEdit = (value?: categoryType) => {
-        setCurrentCategory(value);
-        setIsModalEdit(true);
-    };
-
     const showModalAdd = () => {
         setIsModalAdd(true);
     };
@@ -80,13 +75,6 @@ const Category: FC = () => {
                             columns={columns(setIsModalEdit, setCurrentQuestion, deleteQuestion)}
                             dataSource={question}
                         />
-
-                        {/*<ViewQuestionsModalEdit*/}
-                        {/*    question={question}*/}
-                        {/*    isModalEdit={isModalEdit}*/}
-                        {/*    setIsModalEdit={setIsModalEdit}*/}
-                        {/*    // setLoading={setLoading}*/}
-                        {/*/>*/}
                     </Card>
                 </Col>
             </Row>

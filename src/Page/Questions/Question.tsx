@@ -3,20 +3,38 @@ import { FunctionComponent as FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Link as LinkScroll, Element, animateScroll as scroll } from 'react-scroll';
 import { Card, Col, Row } from 'antd';
-import { initCategory } from '../Category/categoryType';
+import { categoryType, initCategory } from '../Category/categoryType';
 import { initForm as initQuestion } from '../AddQuestions/type-question';
 import { ApiApp } from '../../saga/Api/Auth';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { RootState } from '../../redux/redux.store';
+import { getCategory } from '../../redux/category/category.selector';
 
 const Question: FC = () => {
     const { js } = useParams();
+    const categories = useTypedSelector((state: RootState) => getCategory(state));
     const [category, setCategory] = useState<any>(initCategory);
     const [question, setQuestion] = useState<any>(initQuestion);
     const [loading, setLoading] = useState<any>(true);
     let showQuestionList;
+    console.log(js);
+    console.log(categories);
 
     useEffect(() => {
         let isMounted = true;
-        ApiApp.fetchQuestion(js).then((res) => {
+
+        let catId: number;
+
+        categories?.forEach((cat: categoryType) => {
+            if (cat.slug === js) {
+                console.log(cat.name, js);
+                catId = cat.id;
+            }
+        });
+
+        console.log(catId);
+
+        ApiApp.fetchQuestion(catId).then((res) => {
             if (isMounted) {
                 if (res.data.status === 200) {
                     setLoading(false);
@@ -44,8 +62,12 @@ const Question: FC = () => {
             question.map((quest, index) => {
                 return (
                     <Element key={index} name={`${index + 1}`} className="element">
-                        <Card size={'small'} title={`${index + 1} - ${quest.name}`} style={{ marginBottom: '10px' }}>
-                            <div>{quest.description}</div>
+                        <Card
+                            size={'small'}
+                            title={`${index + 1} - ${quest.question}`}
+                            style={{ marginBottom: '10px' }}
+                        >
+                            <div>{quest.answer}</div>
                             <Link to={`/question/${js}/${quest.id}`}>подробнее...</Link>
                         </Card>
                     </Element>

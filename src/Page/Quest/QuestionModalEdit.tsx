@@ -18,8 +18,6 @@ const QuestionModalEdit = ({ currentQuestion, isModalEdit, setIsModalEdit, setLo
     const levels = useTypedSelector((state: RootState) => getLevel(state));
     const classifications = useTypedSelector((state: RootState) => getClassification(state));
 
-    console.log(currentQuestion);
-
     const handleOk = () => {
         setIsModalEdit(false);
     };
