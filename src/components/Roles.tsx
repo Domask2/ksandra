@@ -6,7 +6,7 @@ const Roles: React.FC = () => {
     const roles = localStorage.getItem('projects_roles');
     const auth = localStorage.getItem('user-token');
 
-    if (roles !== 'admin' || !auth) return null;
+    // if (roles !== 'admin' || !auth) return null;
 
     return (
         <Main>
