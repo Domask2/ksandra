@@ -6,7 +6,7 @@ import { Layout, Menu, Button, Card, Form, Input, notification } from 'antd';
 // import google from '../../assets/images/Google__G__Logo.svg.png';
 import { DribbbleOutlined, TwitterOutlined, InstagramOutlined, GithubOutlined } from '@ant-design/icons';
 import { signin, signup } from './template';
-import { ApiApp } from '../../Api/Auth';
+import { ApiApp } from '../../saga/Api/Auth';
 import type { NotificationPlacement } from 'antd/es/notification';
 import axios from 'axios';
 

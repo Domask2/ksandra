@@ -1,26 +1,16 @@
 import * as React from 'react';
 import { FunctionComponent as FC } from 'react';
+import { useActions } from '../../hooks/useActions';
 import { Button, Form, Input } from 'antd';
-import { ApiApp } from '../../Api/Auth';
-import { errorNotification, successNotification } from '../../source/notification';
 import { initCategory, CategoryFormType } from './categoryType';
 
-const CategoryForm: FC<CategoryFormType> = ({ setIsModalAdd, setLoading }) => {
+const CategoryForm: FC<CategoryFormType> = ({ setIsModalAdd }) => {
     const [form] = Form.useForm();
+    const { categoryStoreAction } = useActions();
 
     const onFinish = (values) => {
-        ApiApp.category(values).then((res) => {
-            if (res.data.status === 200) {
-                if (res.data.message && typeof res.data.message === 'string') {
-                    successNotification('top', '', res.data.message);
-                    setIsModalAdd(false);
-                    setLoading(true);
-                }
-                form.resetFields();
-            } else if (res.data.status === 400) {
-                errorNotification('top', '', res.data.errors);
-            }
-        });
+        categoryStoreAction(values);
+        setIsModalAdd(false);
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -49,31 +39,11 @@ const CategoryForm: FC<CategoryFormType> = ({ setIsModalAdd, setLoading }) => {
                 <Input placeholder="Description" />
             </Form.Item>
 
-            <Form.Item label={'Status'} name="status">
-                <Input placeholder="Status" />
-            </Form.Item>
-
-            <Form.Item
-                label={'meta_title'}
-                name="meta_title"
-                rules={[{ required: true, message: 'Пожалуйста введите meta_title!' }]}
-            >
-                <Input placeholder="meta_title" />
-            </Form.Item>
-
-            <Form.Item label={'meta_keyword'} name="meta_keyword">
-                <Input placeholder="meta_keyword" />
-            </Form.Item>
-
-            <Form.Item label={'meta_descrip'} name="meta_descrip">
-                <Input placeholder="meta_descrip" />
-            </Form.Item>
-
-            <Form.Item>
-                <Button style={{ width: '100%' }} type="primary" htmlType="submit">
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button type="primary" htmlType="submit">
                     Добавить категорию
                 </Button>
-            </Form.Item>
+            </div>
         </Form>
     );
 };

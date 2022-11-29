@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { FunctionComponent as FC } from 'react';
+import CategoryForm from './CategoryForm';
 import { Modal } from 'antd';
 import { CategoryModalAddType } from './categoryType';
-import CategoryForm from './CategoryForm';
 
-const CategoryModalAdd: FC<CategoryModalAddType> = ({ isModalAdd, setIsModalAdd, setLoading }) => {
+const CategoryModalAdd: FC<CategoryModalAddType> = ({ isModalAdd, setIsModalAdd }) => {
     const handleOk = () => {
         setIsModalAdd(false);
     };
@@ -23,7 +23,7 @@ const CategoryModalAdd: FC<CategoryModalAddType> = ({ isModalAdd, setIsModalAdd,
             onOk={handleOk}
             onCancel={handleCancel}
         >
-            <CategoryForm setIsModalAdd={setIsModalAdd} setLoading={setLoading} />
+            <CategoryForm setIsModalAdd={setIsModalAdd} />
         </Modal>
     );
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Layout, Drawer, Affix } from 'antd';
+import { Layout, Drawer } from 'antd';
 import Sidenav from './Sidenav';
 import Header from './Header';
 import Footer from './Footer';
@@ -21,7 +21,10 @@ function Main({ children }) {
     pathname = pathname.replace('/', '');
 
     return (
-        <Layout className={`layout-dashboard ${pathname === 'profile' ? 'layout-profile' : ''}`}>
+        <Layout
+            style={{ width: '1350px', margin: '0 auto' }}
+            className={`layout-dashboard ${pathname === 'profile' ? 'layout-profile' : ''}`}
+        >
             <Drawer
                 title={false}
                 placement={'right'}
@@ -29,13 +32,13 @@ function Main({ children }) {
                 onClose={() => setVisible(false)}
                 visible={visible}
                 key={'right'}
-                width={250}
+                width={230}
                 className={'drawer-sidebar'}
             >
                 <Layout className={'layout-dashboard'}>
                     <Sider
                         trigger={null}
-                        width={250}
+                        width={230}
                         theme="light"
                         className={`sider-primary ant-layout-sider-primary ${
                             sidenavType === '#fff' ? 'active-route' : ''
@@ -50,7 +53,7 @@ function Main({ children }) {
                 breakpoint="lg"
                 collapsedWidth="0"
                 trigger={null}
-                width={250}
+                width={230}
                 theme="light"
                 className={`sider-primary ant-layout-sider-primary ${sidenavType === '#fff' ? 'active-route' : ''}`}
                 style={{ background: sidenavType }}

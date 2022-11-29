@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Row, Col, Button, Drawer, Typography, Switch } from 'antd';
-import { ApiApp } from '../../Api/Auth';
+import { Row, Col, Button, Drawer, Typography } from 'antd';
+import { ApiApp } from '../../saga/Api/Auth';
 import { ButtonContainer, logsetting, profile, setting, toggler } from './template-Header';
 
-function Header({ placement, name, subName, onPress, handleSidenavColor, handleSidenavType }) {
+function Header({ placement, name, onPress, handleSidenavColor, handleSidenavType }: any) {
     const { Title, Text } = Typography;
 
     const history = useNavigate();
@@ -76,7 +76,7 @@ function Header({ placement, name, subName, onPress, handleSidenavColor, handleS
                         placement={placement}
                         visible={visible}
                     >
-                        <div layout="vertical">
+                        <div>
                             <div className="header-top">
                                 <Title level={4}>
                                     Настройки
@@ -91,19 +91,11 @@ function Header({ placement, name, subName, onPress, handleSidenavColor, handleS
                                         <Button type="primary" onClick={() => handleSidenavColor('#1890ff')}>
                                             1
                                         </Button>
-                                        <Button type="success" onClick={() => handleSidenavColor('#52c41a')}>
-                                            1
-                                        </Button>
-                                        <Button type="danger" onClick={() => handleSidenavColor('#d9363e')}>
-                                            1
-                                        </Button>
-                                        <Button type="yellow" onClick={() => handleSidenavColor('#fadb14')}>
-                                            1
-                                        </Button>
+                                        <Button onClick={() => handleSidenavColor('#52c41a')}>1</Button>
+                                        <Button onClick={() => handleSidenavColor('#d9363e')}>1</Button>
+                                        <Button onClick={() => handleSidenavColor('#fadb14')}>1</Button>
 
-                                        <Button type="black" onClick={() => handleSidenavColor('#111')}>
-                                            1
-                                        </Button>
+                                        <Button onClick={() => handleSidenavColor('#111')}>1</Button>
                                     </ButtonContainer>
                                 </div>
 
@@ -111,7 +103,7 @@ function Header({ placement, name, subName, onPress, handleSidenavColor, handleS
                                     <Title level={5}>Настройки празрачности меню</Title>
                                     <ButtonContainer className="trans">
                                         <Button
-                                            type={sidenavType === 'transparent' ? 'primary' : 'white'}
+                                            type={sidenavType === 'transparent' ? 'primary' : 'dashed'}
                                             onClick={() => {
                                                 handleSidenavType('transparent');
                                                 setSidenavType('transparent');
@@ -120,7 +112,7 @@ function Header({ placement, name, subName, onPress, handleSidenavColor, handleS
                                             ПРОЗРАЧНЫЙ
                                         </Button>
                                         <Button
-                                            type={sidenavType === 'white' ? 'primary' : 'white'}
+                                            type={sidenavType === 'white' ? 'primary' : 'dashed'}
                                             onClick={() => {
                                                 handleSidenavType('#fff');
                                                 setSidenavType('white');

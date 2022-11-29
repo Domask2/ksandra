@@ -51,6 +51,7 @@ const HomePage = () => {
                                     window.localStorage.removeItem('user-token');
                                     window.localStorage.removeItem('user-name');
                                     window.localStorage.removeItem('user-email');
+                                    window.localStorage.removeItem('projects_roles');
                                     history('/');
                                 } catch (err: any) {
                                     console.error(err);

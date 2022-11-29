@@ -68,23 +68,21 @@ export const cart = [
 ];
 export const count = [
     {
-        today: 'Today’s Sales',
-        title: '$53,000',
-        persent: '+30%',
+        today: 'Всего вопросов',
+        title: '100',
         icon: dollor,
         bnb: 'bnb2',
     },
     {
-        today: 'Today’s Users',
-        title: '3,200',
-        persent: '+20%',
+        today: 'Решено',
+        title: '5',
         icon: profile,
         bnb: 'bnb2',
     },
     {
-        today: 'New Clients',
-        title: '+1,200',
-        persent: '-20%',
+        today: 'Вопросы по JS',
+        title: '20',
+        persent: ' 10',
         icon: heart,
         bnb: 'redtext',
     },

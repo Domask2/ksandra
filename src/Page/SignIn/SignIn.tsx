@@ -4,7 +4,7 @@ import { Layout, Menu, Button, Row, Col, Typography, Form, Input, notification }
 import signinbg from '../../assets/images/img-signin.jpg';
 import type { NotificationPlacement } from 'antd/es/notification';
 import { signin, signup } from './template';
-import { ApiApp } from '../../Api/Auth';
+import { ApiApp } from '../../saga/Api/Auth';
 // import { DribbbleOutlined, TwitterOutlined, InstagramOutlined, GithubOutlined } from '@ant-design/icons';
 // import SignInGoogle from '../SignInGoogle';
 
@@ -26,9 +26,11 @@ const SignIn = () => {
         ApiApp.login(values)
             .then((res) => {
                 if (res.status === 200) {
+                    console.log(res.data);
                     res.data.token && window.localStorage.setItem('user-token', res.data.token);
                     res.data.name && window.localStorage.setItem('user-name', res.data.name);
                     res.data.email && window.localStorage.setItem('user-email', res.data.email);
+                    res.data.projects_roles && window.localStorage.setItem('projects_roles', res.data.projects_roles);
                     res.data.token && history('/dashboard');
                 }
             })
