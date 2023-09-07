@@ -33,7 +33,13 @@ const Category: FC = () => {
 
     const titleCardCategory = () => {
         return (
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
+            >
                 <h2 style={{ margin: '0' }}>Категории вопросов</h2>
 
                 <Tooltip title="Добавить категорию">
@@ -57,7 +63,11 @@ const Category: FC = () => {
                                     <Card
                                         key={index}
                                         size={'small'}
-                                        style={{ margin: '0 30px', paddingLeft: '25px', borderRadius: '0px' }}
+                                        style={{
+                                            margin: '0 30px',
+                                            paddingLeft: '25px',
+                                            borderRadius: '0px',
+                                        }}
                                         className="card-billing-info"
                                     >
                                         <div className="col-info">

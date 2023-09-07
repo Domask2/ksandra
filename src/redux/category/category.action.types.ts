@@ -16,14 +16,23 @@ export enum CategoryActionsEnum {
     CATEGORY_DESTROY = 'CATEGORY_DESTROY',
 }
 
-export type CategorySuccessActionType = { type: typeof CategoryActionsEnum.CATEGORY_SUCCESS; category: categoryType };
+export type CategorySuccessActionType = {
+    type: typeof CategoryActionsEnum.CATEGORY_SUCCESS;
+    category: categoryType;
+};
 
 export type CategoryStoreSuccessActionType = {
     type: typeof CategoryActionsEnum.CATEGORY_STORE_SUCCESS;
     values: categoryType;
 };
-export type CategoryStoreFailedActionType = { type: typeof CategoryActionsEnum.CATEGORY_STORE_FAILED; message: string };
-export type CategoryStoreActionType = { type: typeof CategoryActionsEnum.CATEGORY_STORE; values: categoryType };
+export type CategoryStoreFailedActionType = {
+    type: typeof CategoryActionsEnum.CATEGORY_STORE_FAILED;
+    message: string;
+};
+export type CategoryStoreActionType = {
+    type: typeof CategoryActionsEnum.CATEGORY_STORE;
+    values: categoryType;
+};
 
 export type CategoryUpdateSuccessActionType = {
     type: typeof CategoryActionsEnum.CATEGORY_UPDATE_SUCCESS;
@@ -48,7 +57,10 @@ export type CategoryDestroyFailedActionType = {
     type: typeof CategoryActionsEnum.CATEGORY_DESTROY_FAILED;
     message: string;
 };
-export type CategoryDestroyActionType = { type: typeof CategoryActionsEnum.CATEGORY_DESTROY; id: number };
+export type CategoryDestroyActionType = {
+    type: typeof CategoryActionsEnum.CATEGORY_DESTROY;
+    id: number;
+};
 
 export type CategoryActionCreatorsType =
     | CategorySuccessActionType

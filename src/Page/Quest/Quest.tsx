@@ -40,7 +40,13 @@ const Category: FC = () => {
 
     const titleCardCategory = () => {
         return (
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
+            >
                 <h2 style={{ margin: '0' }}>Список вопросов</h2>
 
                 <Tooltip title="Добавить вопрос">

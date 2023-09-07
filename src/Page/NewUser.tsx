@@ -7,7 +7,10 @@ import { useState } from 'react';
 
 const NewUser = () => {
     const history = useNavigate();
-    const [user, setUser] = useState<{ name: string; email: string }>({ name: '', email: '' });
+    const [user, setUser] = useState<{ name: string; email: string }>({
+        name: '',
+        email: '',
+    });
     const [userArray, setUserArray] = useState<[{ name: string; email: string }] | []>([]);
     console.log(user);
     console.log(userArray);
@@ -84,7 +87,11 @@ const NewUser = () => {
                             return (
                                 <div
                                     key={index}
-                                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
                                 >
                                     Name:{' '}
                                     <span

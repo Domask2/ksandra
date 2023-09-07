@@ -1,5 +1,6 @@
 @media print {
-    .lcHeader, .noPrint {
+    .lcHeader,
+    .noPrint {
         display: none;
     }
 }

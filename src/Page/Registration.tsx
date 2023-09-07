@@ -100,7 +100,12 @@ const Registration = () => {
                         <Form.Item
                             label="Confirm_password"
                             name="confirm_password"
-                            rules={[{ required: true, message: 'Please input your confirm_password!' }]}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your confirm_password!',
+                                },
+                            ]}
                         >
                             <Input.Password />
                         </Form.Item>

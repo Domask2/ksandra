@@ -5,6 +5,8 @@ import { signin, signup } from './SignUp/template';
 import { ApiApp } from '../saga/Api/Auth';
 const { Header, Content } = Layout;
 
+
+
 const ForgotPassword = () => {
     const onFinish = (values: any) => {
         ApiApp.forgotPassword(values)
